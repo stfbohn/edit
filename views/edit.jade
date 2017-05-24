@@ -1,0 +1,33 @@
+doctype html
+html(lang='fr')
+  head
+    meta(charset='utf-8')
+    title Edit
+    meta(name='description', content='bla bla')
+    meta(name='author', content='Steffen Bohn')
+    link(rel='stylesheet', type='text/css', href='/stylesheets/edit.css')
+  body
+    
+    #header
+      .tabcontainer
+        .tabheader.tabselect content
+        .tabheader style
+        .tabheader script
+        .tabheader preview
+    #whitetop
+    include left 
+
+    #base(spellcheck='false')
+      include mix
+      +element('div', 'A', '???')
+        +element('div', 'B', '')
+        +element('div', 'C', '???')
+      div.blink.caret(onclick='actBlink(this)')
+      div.rest 
+
+    include right  
+    #element_template.hide
+      +element('TYPE', '', '')  
+
+    script(src="/javascripts/edit.js")          
+    

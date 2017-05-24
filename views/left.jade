@@ -1,0 +1,60 @@
+mixin prop(name,value,myclass)
+    div.prop(class=myclass)
+        div.propname #{name}
+        div.propvalue #{value} &nbsp;
+
+mixin selectprop(names,myclass)
+    div.prop(class=myclass)
+        div.propname #{name}
+            select
+                option(value="none") select
+                option(value="none") other
+        div.propvalue &nbsp;
+
+mixin insertbutton(text,arg)
+        button(onclick="insertElem('#{arg}')") #{text}
+
+#left
+    #lefttop 
+        div.updown
+            button(onclick='carretUp(true)') &#9650;
+            button(onclick='carretUp(false)') &#9660;
+    #leftprop.hide
+        h3 Basics
+        +prop('type','div','pptype')
+        +prop('id','myid','ppid')
+        +prop('comment','','ppcomment')
+        +prop('class','peter','ppclass')
+        +prop('','pan','ppclass')
+        +prop('','','ppclass')
+        h3 Values
+        +prop('contentEditable','true','')
+        +prop('spellcheck','true','')
+        +selectprop('','')
+        h3 Events
+        +prop('onclick','myfunc')
+        +selectprop('','')
+    #leftinsert
+        div.lcont
+            h2 common
+            +insertbutton('[text]','text')
+            +insertbutton('div','div')
+            +insertbutton('p','p')
+            +insertbutton('a','a')
+            +insertbutton('span','span')
+            +insertbutton('h1','h1')
+            +insertbutton('h2','h2')
+            +insertbutton('h3','h3')
+        div.lcont
+            h2 UI
+            div input[button]
+            div input[text]
+            div ...
+        div.lcont
+            h2 list
+            div ul
+            div ol
+            div li
+
+        p#coord 
+
