@@ -11,22 +11,21 @@ function clearCoor() {
     document.getElementById("coord").innerHTML = "out";
 }
 
-function show(elem){
-    var parent = elem.parentNode;
-    var cont = parent.getElementsByClassName('content');
-    if(cont.length > 0){
-        cont[0].classList.toggle('hide'); 
-        if(cont[0].classList.contains('hide')){
-            elem.innerHTML = "&#9655;"; 
-        }
-        else { 
-            elem.innerHTML ="&#9661;"; 
-        }
-        }
-    var coll = parent.getElementsByClassName('tcollapsed');
-    if(coll.length > 0){
-        coll[0].classList.toggle('hide'); 
+function show(triangle){
+    var elem = triangle.nextSibling;
+    console.log("before:", elem,elem.itemId, elem.classList.contains('collapse'));
+    elem.classList.toggle('collapse');
+    if(elem.classList.contains('collapse'))
+    {
+        console.log('collased'); 
+        triangle.innerHTML = "&#9655;";
     }
+    else {
+        triangle.innerHTML = "&#9661;";
+    }
+    
+    console.log("after:", elem, elem.getElementById, elem.classList.contains('collapse')); 
+    console.log(triangle.innerHTML); 
 }
 
 var sls = document.getElementsByClassName('sl');
@@ -43,26 +42,6 @@ function noReturn(e)
    }
 }
 
-var activeMenu = null;
-
-function showmenu(elem){
-    if (activeMenu != null)
-        activeMenu.classList.add('hide');
-    var men = elem.getElementsByClassName('openmenu');
-    if(men.length >0){
-        if(activeMenu == men[0]) {
-            activeMenu = null;
-        }
-        else {
-            men[0].classList.remove('hide');
-            activeMenu = men[0];
-        }
-    }
-    else {
-        activeMenu = null;
-    }
-}
-
 var currBlink = null; 
 var currTitle = null;
 
@@ -70,7 +49,7 @@ var leftprop = document.getElementById('leftprop');
 var leftinsert = document.getElementById('leftinsert'); 
 
 var firstCaret = document.getElementsByClassName('blink')[0]; 
-actBlink(firstCaret);
+setCaret(firstCaret);
 
 function getCaret() {
     if(currBlink != null) return currBlink;
@@ -80,24 +59,27 @@ function getCaret() {
 
 var element_template = document.getElementById('element_template');
 
-function insertElem(type)
+function setCaretBorder(elem, show)
 {
-    var car = getCaret();
-    var l = element_template.childNodes.length; 
-    for(var i=0;i<l;i++) {
-        var cl = element_template.childNodes[i].cloneNode(true);
-        var found = cl.getElementsByClassName('ttype'); 
-        if(found.length > 0) {
-               found[0].innerHTML = type; 
+    var p1 = elem.parentNode; 
+    if(p1 != null) {
+        var p2 = p1.parentNode; 
+        if(p2 != null) {
+            if(show) {
+                p2.classList.add('showborder');
+            }
+            else {
+                p2.classList.remove('showborder');    
+            }
         }
-        car.parentNode.insertBefore(cl, car);
     }
 }
 
-function clearBlink()
+function clearCaret()
 {
     if(currBlink != null){
-        currBlink.innerHTML = ''; //  classList.remove('blinkactive');
+        setCaretBorder(currBlink, false);  
+        currBlink.innerHTML = ''; 
         currBlink = null;
     }
     if(currTitle!=null)
@@ -107,23 +89,24 @@ function clearBlink()
     }
 }
 
-function actBlink(elem) {
-    clearBlink();
+function setCaret(elem) {
+    clearCaret();
     if(elem.classList.contains('blink')) {
         currBlink = elem;
         currBlink.innerHTML = "<div class='blinkactive'></div>"; //.classList.add('blinkactive');
         leftprop.classList.add('hide'); 
-        leftinsert.classList.remove('hide'); 
+        leftinsert.classList.remove('hide');
+        setCaretBorder(elem, true); 
+        elem.parentNode.parentNode.classList.add('showborder'); 
     }
-}
-
-function selectTitle(elem) {
-    clearBlink();
-    if(elem.classList.contains('title')) {
+    else if(elem.classList.contains('title')) {
         elem.classList.add('tselect'); 
         currTitle = elem; 
         leftinsert.classList.add('hide'); 
         leftprop.classList.remove('hide'); 
+    }
+    else {
+        console.log("Imposible to set caret", elem); 
     }
 }
 
@@ -140,13 +123,7 @@ function carretUp(up) {
                     i++;
                 }
                 if(i>= 0 && i< divs.length) {
-                    var target = divs[i];
-                    if(target.classList.contains('blink')){
-                        actBlink(target);  
-                    } 
-                    else if(target.classList.contains('title')){
-                        selectTitle(target);
-                    }
+                    setCaret(divs[i]); 
                 }   
                 return;
             }
@@ -178,6 +155,9 @@ function mykeypress(e) {
     }
 }
 
+
+
+
 function addEvent(element, eventName, callback) {
     if (element.addEventListener) {
         element.addEventListener(eventName, callback, false);
@@ -198,3 +178,27 @@ window.addEventListener("paste", function(e) {
     // insert text manually
     document.execCommand("insertHTML", false, text);
 });
+
+function insertElem(type)
+{
+    var car = getCaret();
+    if('text' == type) {
+        console.log('insert text');
+        var p = document.createElement('p');
+        p.isContentEditable = true; 
+        p.innerHTML = 'hello'; 
+        car.parentNode.insertBefore(p,car);  
+    } else
+    {
+        var l = element_template.childNodes.length; 
+        for(var i=0;i<l;i++) {
+            var cl = element_template.childNodes[i].cloneNode(true);
+            var found = cl.getElementsByClassName('ttype'); 
+            if(found.length > 0) {
+                found[0].innerHTML = type; 
+            }
+            car.parentNode.insertBefore(cl, car);
+        }
+    }
+    carretUp(true);
+}

@@ -1,0 +1,15 @@
+mixin element(type, id, classes)
+    div.blink.caret(onclick='setCaret(this)')
+    div.tshow.unselect(onclick='show(this)') &#9661;
+    div.element
+        div.title.caret.unselect(onclick='setCaret(this)')
+            span.ttype  #{type} 
+            span.tid.sl #{id} 
+            span.tclass.sl #{classes} 
+            span.dummy ...
+            div.tmenu(onclick='showmenu(this)') &times;
+        div.content
+            block
+            div.blink.caret(onclick='setCaret(this)')
+
+    

@@ -6,7 +6,7 @@ html(lang='fr')
     meta(name='description', content='bla bla')
     meta(name='author', content='Steffen Bohn')
     link(rel='stylesheet', type='text/css', href='/stylesheets/edit.css')
-  body
+  body(spellcheck=false)
     
     #header
       .tabcontainer
@@ -18,11 +18,11 @@ html(lang='fr')
     include left 
 
     #base(spellcheck='false')
-      include mix
-      +element('div', 'A', '???')
-        +element('div', 'B', '')
-        +element('div', 'C', '???')
-      div.blink.caret(onclick='actBlink(this)')
+      include element
+      +element('div', 'header', 'foo bar')
+        +element('div', 'myId', '')
+        +element('div', 'foo', 'hide red content')
+      div.blink.caret(onclick='setCaret(this)')
       div.rest 
 
     include right  

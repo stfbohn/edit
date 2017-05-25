@@ -1,7 +1,7 @@
 mixin prop(name,value,myclass)
     div.prop(class=myclass)
         div.propname #{name}
-        div.propvalue #{value} &nbsp;
+        div.propvalue(contentEditable, spellcheck=false) #{value} &nbsp;
 
 mixin selectprop(names,myclass)
     div.prop(class=myclass)
