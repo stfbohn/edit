@@ -57,7 +57,6 @@ function getCaret() {
     return null; 
 }
 
-var element_template = document.getElementById('element_template');
 
 function setCaretBorder(elem, show)
 {
@@ -179,26 +178,28 @@ window.addEventListener("paste", function(e) {
     document.execCommand("insertHTML", false, text);
 });
 
+var element_template = document.getElementById('element_template');
+var text_template = document.getElementById('text_template');
+
 function insertElem(type)
 {
     var car = getCaret();
+    var templ = null; 
     if('text' == type) {
-        console.log('insert text');
-        var p = document.createElement('p');
-        p.isContentEditable = true; 
-        p.innerHTML = 'hello'; 
-        car.parentNode.insertBefore(p,car);  
-    } else
-    {
-        var l = element_template.childNodes.length; 
-        for(var i=0;i<l;i++) {
-            var cl = element_template.childNodes[i].cloneNode(true);
-            var found = cl.getElementsByClassName('ttype'); 
-            if(found.length > 0) {
-                found[0].innerHTML = type; 
-            }
-            car.parentNode.insertBefore(cl, car);
-        }
+        templ = text_template.childNodes; 
+    } 
+    else {
+        templ = element_template.childNodes; 
     }
+
+   for(var i=0;i<templ.length;i++) {
+        var cl = templ[i].cloneNode(true);
+        var found = cl.getElementsByClassName('ttype'); 
+        if(found.length > 0) {
+            found[0].innerHTML = type; 
+        }
+        car.parentNode.insertBefore(cl, car);
+    }
+    
     carretUp(true);
 }

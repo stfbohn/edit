@@ -152,15 +152,15 @@ div.blinkactive {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  border: 1px solid #8cd3ff; }
+  border: 1px solid #336dc4; }
   #leftinsert .lcont h2 {
     text-align: center;
-    background-color: #8cd3ff; }
+    background-color: #336dc4; }
   #leftinsert .lcont div, #leftinsert .lcont button {
     margin: 3px;
-    color: #8cd3ff;
-    background-color: #8c8c8c;
-    padding: 0px 5px 0px 5px; }
+    color: #336dc4;
+    background-color: white;
+    padding: 2px 5px 2px 5px; }
 
 #leftprop h3 {
   text-align: center;
@@ -242,11 +242,17 @@ div.element {
   div.element .content {
     margin-left: 15px;
     border-left: 0.5px solid #8c8c8c;
-    border-bottom: 0.5px solid #8c8c8c; }
-    div.element .content > p {
-      /*background-color: #e3e7ed;*/
+    border-bottom: 0.5px solid #8c8c8c;
+    /*
+        &>p {
+            margin: 1px 0 1px 0px;
+            color: $color-lightgray;
+        }
+        */ }
+    div.element .content > p.ttext {
+      display: inline-block;
       margin: 1px 0 1px 0px;
-      color: #8c8c8c; }
+      /*color:red;*/ }
   div.element div.tselect {
     background-color: #e3e7ed;
     /*$color-lightgray;*/ }

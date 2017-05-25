@@ -12,4 +12,8 @@ mixin element(type, id, classes)
             block
             div.blink.caret(onclick='setCaret(this)')
 
+mixin ttext
+    div.blink.caret(onclick='setCaret(this)')
+    div.tshow.unselect(onclick='show(this)') &#9661;
+    p.ttext(contentEditable=true) hello
     

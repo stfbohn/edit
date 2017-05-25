@@ -1,7 +1,11 @@
 /*$color-lightgray: #636363;*/
 $color-lightgray:#8c8c8c;
 $title-height:16px;
-$type-color:#336dc4; //#8cd3ff;
+
+$color-tag:#336dc4; //#8cd3ff;
+$color-id:#c43232; 
+$color-class:#21891f;
+
 $content_indent:15px;
 $content_padding:1px; 
 * {
@@ -124,10 +128,6 @@ div.blinkactive{
     left:0;
     width:300px;
     background-color: #dbdbdb;
-
-
-
-
 }
 #whitetop
 {
@@ -171,18 +171,18 @@ div.blinkactive{
         box-sizing: border-box;
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
-        border: 1px solid #8cd3ff;
+        border: 1px solid $color-tag;;
         
         h2 {
             text-align: center;
-            background-color: #8cd3ff;
+            background-color: $color-tag;;
         }
+        
         div, button {
-            
             margin: 3px;
-            color:#8cd3ff;
-            background-color: $color-lightgray;
-            padding: 0px 5px 0px 5px;   
+            color:$color-tag;;
+            background-color: white;
+            padding: 2px 5px 2px 5px;   
         }
     }
 }

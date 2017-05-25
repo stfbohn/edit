@@ -26,10 +26,9 @@ div.element{
     div.title{
         display: inline-block;
         color: $color-lightgray;
-        
-        .ttype { color:$type-color; }
-        .tid{ color: #c43232; font-weight: bold; }
-        .tclass{ color: #21891f; font-weight: bold; }
+        .ttype { color:$color-tag; }
+        .tid{ color: $color-id; font-weight: bold; }
+        .tclass{ color: $color-class; font-weight: bold; }
         .dummy { color: black; opacity: 0; }
         .tmenu { 
             display: inline-block;
@@ -54,14 +53,20 @@ div.element{
         
         border-left: 0.5px solid $color-lightgray; 
         border-bottom: 0.5px solid $color-lightgray;
-        
+        /*
         &>p {
-            /*background-color: #e3e7ed;*/ 
             margin: 1px 0 1px 0px;
             color: $color-lightgray;
         }
-
+        */
+        &>p.ttext
+        {
+            display: inline-block;
+            margin: 1px 0 1px 0px;
+            /*color:red;*/
+        }
     }
+    
     div.tselect { background-color:#e3e7ed; /*$color-lightgray;*/   }
 }
 
