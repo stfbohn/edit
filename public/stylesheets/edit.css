@@ -275,6 +275,8 @@ div.element {
     color: #8c8c8c;
     padding: 0 2px 0 2px;
     margin-right: auto; }
+    div.element div.title > span {
+      padding-left: 3px; }
     div.element div.title .ttype {
       color: #336dc4; }
     div.element div.title .tid {

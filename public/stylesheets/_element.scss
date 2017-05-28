@@ -34,6 +34,7 @@ div.element{
         //background-color: #ededed; //yellow
         display: inline-block;
         color: $color-lightgray;
+        & > span { padding-left: 3px;}
         .ttype { color:$color-tag; }
         .tid{ color: $color-id; font-weight: bold; }
         .tclass{ color: $color-class; font-weight: bold; }

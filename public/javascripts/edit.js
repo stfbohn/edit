@@ -185,23 +185,27 @@ function addEvent(element, eventName, callback) {
 }
 /*
 window.addEventListener("keydown", mykeypress, true);
-
+*/
 window.addEventListener("paste", function(e) {
     // cancel paste
     e.preventDefault();
 
     // get text representation of clipboard
-    //var text = e.clipboardData.getData("text/plain");
-    var text = e.clipboardData.getData("text/html");
+    var text = e.clipboardData.getData('text/plain');
+    //var text = e.clipboardData.getData('text/html');
+    
+    console.log(text);
+    /*
     var dummy = document.getElementById('pastedummy'); 
     dummy.innerHTML = text; 
     text = dummy.innerText; 
     dummy.innerHTML = '';
+    */
 
     // insert text manually
-    document.execCommand("insertHTML", false, text);
+    document.execCommand("insertText", false, text);
 });
-*/
+
 
 
 
