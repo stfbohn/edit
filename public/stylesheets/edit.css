@@ -86,18 +86,24 @@ button {
     opacity: 0; } }
 
 div.blink {
-  height: 5px;
-  width: 100%;
-  display: flex;
   /*justify-content: center;*/
+  height: 0px;
+  width: 100%;
   align-items: center;
   text-align: left;
-  cursor: vertical-text; }
+  cursor: vertical-text;
+  font-size: 0px; }
   div.blink > div {
-    height: 1px;
+    display: none;
     width: 30px;
     margin-left: 2px; }
+  div.blink:focus {
+    height: 11px; }
   div.blink:focus > div {
+    display: block;
+    /*margin-top:5px;
+        margin-bottom: 5px;*/
+    height: 1px;
     background-color: black;
     animation: blinker 1s linear infinite; }
 
@@ -256,7 +262,7 @@ div.blink {
   display: inline-block;
   color: #8c8c8c;
   vertical-align: top;
-  font-size: 12px;
+  font-size: 10px;
   width: 15px;
   text-align: right;
   padding-right: 2px;
@@ -288,7 +294,7 @@ div.element {
     padding: 0 2px 0 2px;
     margin-right: auto; }
     div.element div.title > span {
-      padding-right: 3px; }
+      padding-right: 0px; }
     div.element div.title .ttype {
       color: #336dc4; }
     div.element div.title .tid {
@@ -302,8 +308,8 @@ div.element {
       opacity: 0; }
     div.element div.title .tdelete {
       display: inline-block;
-      height: 14px;
-      width: 14px;
+      height: 10px;
+      width: 10px;
       vertical-align: center;
       line-height: 8px;
       text-align: center;

@@ -1,21 +1,21 @@
 mixin blinker(id)
     if id != ''
         div.blink.caret( id=id,tabindex='0' onfocus="caretFocus(this)" onkeydown="caretKeyDown(event,this)") 
-            div
+            div.binkEdit(contentEditable)
     else
         div.blink.caret(tabindex='0' onfocus="caretFocus(this)" onkeydown="caretKeyDown(event,this)") 
-            div
+            div.binkEdit(contentEditable)
 
 mixin element(type, id, classes)
     +blinker('')
     div.tshow.unselect(onclick='show(this)') &#9661;
     div.element.caret(tabindex='0' onfocus="elementFocus(this)") 
-        div.title.unselect
+        div.title 
             span.ttype  #{type} 
             span.tid.sl #{id} 
             span.tclass.sl #{classes} 
             span.dummy ...
-            button.tdelete(tabIndex="-1" onclick='deleteElementButton') &times;
+            button.tdelete.unselect(tabIndex="-1" onclick='deleteElementButton') &times;
         div.content
             block
             +blinker('')

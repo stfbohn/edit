@@ -437,10 +437,12 @@ function pastetext(button)
 
     var jjj = getJadeLines(textelem.innerText);
 
+    var sum = 0;
     for(var i = 0;i < jjj.length;i++){
         var ji = jjj[i];
         if(ji.di != 0){
             carretMove(jjj[i].di);
+            sum += jjj[i].di;
         }
         
         var newElem = insertElem(ji.tag);
@@ -453,5 +455,6 @@ function pastetext(button)
         }
         
     }
+    carretMove(-sum);
     //textelem.innerHTML = endstring;
 }
