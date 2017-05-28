@@ -1,10 +1,11 @@
 mixin blinker(id)
     if id != ''
-        div.blink.caret( id=id,tabindex='0' onfocus="caretFocus(this)" onkeydown="caretKeyDown(event,this)") 
-            div.binkEdit(contentEditable)
+        div.blink.caret( id=id,tabindex='0' onfocus="caretFocus(this)")
     else
-        div.blink.caret(tabindex='0' onfocus="caretFocus(this)" onkeydown="caretKeyDown(event,this)") 
-            div.binkEdit(contentEditable)
+        div.blink.caret(tabindex='0' onfocus="caretFocus(this)")
+
+mixin binkerEdit()
+    p.caret(tabindex='0' contentEditable=true onblur="textBlur(this)") &nbsp;
 
 mixin element(type, id, classes)
     +blinker('')

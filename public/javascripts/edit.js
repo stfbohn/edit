@@ -4,22 +4,21 @@ function mousemove(e) {
     var x = e.clientX;
     var y = e.clientY;
     var coor = "Coordinates: (" + x + "," + y + ")";
-    //console.log(coor);
+    
     document.getElementById("coord").innerHTML = coor;
 }
 
 function clearCoor() {
-    //console.log('out');
+    
     document.getElementById("coord").innerHTML = "out";
 }
 
 function show(triangle){
     var elem = triangle.nextSibling;
-    console.log("before:", elem,elem.itemId, elem.classList.contains('collapse'));
+    
     elem.classList.toggle('collapse');
     if(elem.classList.contains('collapse'))
     {
-        console.log('collased'); 
         triangle.innerHTML = "&#9655;";
         var dummy = elem.getElementsByClassName('dummy')[0];
         var content = elem.getElementsByClassName('content')[0];
@@ -38,9 +37,6 @@ function show(triangle){
     else {
         triangle.innerHTML = "&#9661;";
     }
-    
-    console.log("after:", elem, elem.getElementById, elem.classList.contains('collapse')); 
-    console.log(triangle.innerHTML); 
 }
 
 var sls = document.getElementsByClassName('sl');
@@ -70,6 +66,7 @@ var lastCaret = document.getElementById('lastbinker');
 var beforeFirstCaret = document.getElementById('startbase'); 
 var base = document.getElementById("base");
 var baseElement = document.getElementById("baseElement");
+
 function getCaret() {
     if(currCaret != null) return currCaret;
     if(currElement != null) return currElement;
@@ -81,44 +78,42 @@ var elementmenu = document.getElementById('elementmenu');
 function elementFocus(elem){
     var old =getCaret(); 
     if(old != null) {
-        if(old.classList.contains('blink')) {
-            console.log(old);
-            old.parentElement.classList.remove('leftborder');
-        }
+        old.parentElement.classList.remove('leftborder');
     }
 
     currCaret = null;
     currElement = elem;
-    //console.log('element ' + currCaret);
     leftinsert.classList.add('hide'); 
     leftprop.classList.remove('hide'); 
-    
-    return; 
-    var rect = elem.getBoundingClientRect();
-    console.log(rect.top, rect.right, rect.bottom, rect.left);
-    elementmenu.style.left= (rect.left + 15).toString() + 'px';
-    elementmenu.style.top= (rect.top + 15).toString() + 'px';
-    
 }
 
 function caretFocus(caret){
     
     var old =getCaret(); 
     if(old != null) {
-        if(old.classList.contains('blink')) {
-            //console.log(old);
-            old.parentElement.classList.remove('leftborder');
-        }
+        old.parentElement.classList.remove('leftborder');
+    }
+    currElement = null;
+    var newChild = caretFocus_template.childNodes[0].cloneNode(true);
+    newChild.id = caret.id;
+    if(newChild.id == 'lastbinker'){
+        lastCaret = newChild;
     }
 
-    currElement = null;
-    currCaret = caret;
+    caret.parentElement.replaceChild( newChild,caret);
+    currCaret = newChild;
+    currCaret.focus();
+
     leftprop.classList.add('hide'); 
     leftinsert.classList.remove('hide'); 
-    caret.parentElement.classList.add('leftborder');
-
-    
+    currCaret.parentElement.classList.add('leftborder');
     //console.log('caret ' + currCaret);
+}
+
+function blinkEditBlur(blinkEdit)
+{
+    //blinkEdit.style.display = 'none';
+    console.log('whatr the hell');
 }
 
 function refocus() {
@@ -138,6 +133,9 @@ focusLast(beforeFirstCaret);
 
 function carretMove(move) {
     var start = getCaret();
+
+//check
+
     if(start != null) {
         var divs = base.getElementsByClassName('caret');
         for(var i=0;i<divs.length;i++){
@@ -210,6 +208,7 @@ window.addEventListener("paste", function(e) {
 var element_template = document.getElementById('element_template');
 var text_template = document.getElementById('text_template');
 var caret_template = document.getElementById('caret_template');
+var caretFocus_template = document.getElementById('caretFocus_template');
 
 function deleteElementButton(elem)
 {
@@ -262,7 +261,25 @@ function insertElem(type)
     return cl;
 }
 function textBlur(textElement){
-    text = textElement.innerText.trim(); 
+    
+    var newChild = caret_template.childNodes[0].cloneNode();
+    newChild.id = textElement.id;
+     if(newChild.id == 'lastbinker'){
+        lastCaret = newChild;
+    }
+    textElement.parentElement.replaceChild(newChild,textElement);
+    currCaret =  newChild;
+   console.log('implement textBlur');
+    
+    return;
+
+
+    var text = textElement.innerText.trim(); 
+    if(text.length == 0) {
+        //textElement.style.display = 'none';
+    }
+    return;
+
     if(text.length > 0){
         textElement.innerText = text; 
         }
@@ -284,6 +301,9 @@ function textBlur(textElement){
 
 function caretKeyDown(ev, elem)
 {
+    //need tad prevent default for navigation
+    console.log(ev.keyCode);
+    return;
     var keycode = ev.keyCode;
     if ((ev.metaKey || ev.ctrlKey) && keycode == 13) {
         console.log( "You pressed CTRL + ENTER" );

@@ -52,6 +52,10 @@ div:focus, div:active, span:focus, span:active {
   outline: 0;
   border: none; }
 
+p:focus, p:active {
+  outline: none;
+  background-color: #cecece; }
+
 button {
   display: block;
   border: 1px solid darkgray;
@@ -80,32 +84,10 @@ button {
 .hide {
   display: none !important; }
 
-/*blinker*/
-@keyframes blinker {
-  50% {
-    opacity: 0; } }
-
 div.blink {
-  /*justify-content: center;*/
-  height: 0px;
-  width: 100%;
-  align-items: center;
-  text-align: left;
-  cursor: vertical-text;
-  font-size: 0px; }
-  div.blink > div {
-    display: none;
-    width: 30px;
-    margin-left: 2px; }
-  div.blink:focus {
-    height: 11px; }
-  div.blink:focus > div {
-    display: block;
-    /*margin-top:5px;
-        margin-bottom: 5px;*/
-    height: 1px;
-    background-color: black;
-    animation: blinker 1s linear infinite; }
+  /*height:3px;
+    background-color: yellow;*/
+  width: 100%; }
 
 #header {
   position: fixed;
@@ -293,8 +275,6 @@ div.element {
     color: #8c8c8c;
     padding: 0 2px 0 2px;
     margin-right: auto; }
-    div.element div.title > span {
-      padding-right: 0px; }
     div.element div.title .ttype {
       color: #336dc4; }
     div.element div.title .tid {
@@ -322,7 +302,7 @@ div.element {
       border: 1px solid black;
       border-radius: 2px; }
   div.element:focus > div.title {
-    background-color: #e3e7ed; }
+    background-color: #cecece; }
   div.element .content {
     margin-left: 15px;
     /*

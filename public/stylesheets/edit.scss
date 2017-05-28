@@ -6,7 +6,7 @@
 
 /*$color-lightgray: #636363;*/
 $font-size: 11px; 
-
+$color-outline: #cecece;
 
 
 $color-lightgray:#8c8c8c;
@@ -62,6 +62,10 @@ div:focus, div:active,span:focus, span:active {
     outline:0; 
     border:none;
 }
+p:focus, p:active {
+    outline: none; 
+    background-color: $color-outline;
+}
 
 button {
     display: block;
@@ -85,37 +89,11 @@ button {
     display: none !important;
 }
 
-/*blinker*/
-@keyframes blinker {  
-  50% { opacity: 0; }
-}
 div.blink {
-    /*justify-content: center;*/
-    height:0px;
-
+    /*height:3px;
+    background-color: yellow;*/
     width: 100%;
-    align-items: center; 
-    text-align: left;
-    cursor: vertical-text;
-    font-size: 0px;
-    & > div{
-        display: none;
-        width: 30px;
-        margin-left: $content_padding;
-    }
-    &:focus{
-        height: $font-size
-    }
-    &:focus > div {
-        display: block;
-        /*margin-top:5px;
-        margin-bottom: 5px;*/
-        height:1px;
-        background-color: black;
-        animation: blinker 1s linear infinite;
-    }
 }
-
 
 #header{
     position: fixed;

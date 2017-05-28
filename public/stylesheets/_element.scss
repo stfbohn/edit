@@ -34,7 +34,6 @@ div.element{
         //background-color: #ededed; //yellow
         display: inline-block;
         color: $color-lightgray;
-        & > span { padding-right:0px;}
         .ttype { color:$color-tag; }
         .tid{ color: $color-id; font-weight: bold; }
         .tclass{ color: $color-class; font-weight: bold; }
@@ -50,6 +49,7 @@ div.element{
             border: 1px solid white;
             background-color: white;
         }
+
         &:hover .tdelete { 
             padding: 1px;
             color: black; 
@@ -60,7 +60,7 @@ div.element{
         margin-right: auto;
     }
     &:focus > div.title{
-         background-color:#e3e7ed;
+         background-color:$color-outline;;
     }
     .content {
         margin-left: $content_indent;

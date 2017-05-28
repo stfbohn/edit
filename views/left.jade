@@ -33,8 +33,8 @@ mixin elementMenu()
 #left
     #lefttop 
         div.updown
-            button(onclick='carretUp(true)') &#9650;
-            button(onclick='carretUp(false)') &#9660;
+            button(onclick='carretMove(-1)') &#9650;
+            button(onclick='carretMove(1)') &#9660;
     #leftprop.hide
         h3 Basics
         +prop('type','div','pptype')
