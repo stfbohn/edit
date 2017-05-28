@@ -18,18 +18,26 @@ html(lang='fr')
     include left 
 
     #base(spellcheck='false')
+      #startbase(tabindex='0' onfocus="focusLast(this)") 
       include element
-      +element('div', 'header', 'foo bar')
-        +element('div', 'myId', '')
-        +element('div', 'foo', 'hide red content')
-      div.blink.caret(onclick='setCaret(this)')
-      div.rest 
+      +baseElement('page', 'index', '')
+        +element('div', 'header', 'foo bar')
+          +element('div', 'myId', '')
+          +element('div', 'foo', 'hide red content')
+      #endbase(tabindex='0' onfocus="focusLast(this)") 
+    +elementMenu()
 
     include right  
     #element_template.hide
       +element('TYPE', '', '')  
     #text_template.hide
       +ttext
+    #caret_template.hide
+      +blinker('')
+    
+    
+
+
 
     script(src="/javascripts/edit.js")          
     

@@ -52,5 +52,39 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+/*
+var parse = require('pug-parser');
+var lex = require('pug-lexer');
+var filename = 'my-file.pug';
+var src = 'div(data-foo="bar")';
+var tokens = lex(src, {filename});
+var ast = parse(tokens, {filename, src});
+
+var output = ''; 
+function getNodes(subject, level)
+{
+    if(subject.type == "Tag") {
+      output += level.toString() + ':' + subject.name + '\n'; 
+      console.log("["+ level +"]" + subject.type)
+    }
+    else {
+      console.log("["+ level +"]" + "not tag:", subject.type)
+    }
+    var nodes = subject.nodes; 
+    nodes.forEach(function(nextEle) {
+      getNodes(nextEle, level+1);
+    }, this);
+}
+
+var l = 0; 
+console.log('hello');
+getNodes(ast,0); 
+console.log("output", output);
+
+//console.log(JSON.stringify(ast, null, '  '))
+
+*/
+
+
 
 module.exports = app;

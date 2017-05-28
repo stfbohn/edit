@@ -1,19 +1,36 @@
+mixin blinker(id)
+    if id != ''
+        div.blink.caret( id=id,tabindex='0' onfocus="caretFocus(this)" onkeydown="caretKeyDown(event,this)") 
+            div
+    else
+        div.blink.caret(tabindex='0' onfocus="caretFocus(this)" onkeydown="caretKeyDown(event,this)") 
+            div
+
 mixin element(type, id, classes)
-    div.blink.caret(onclick='setCaret(this)')
+    +blinker('')
     div.tshow.unselect(onclick='show(this)') &#9661;
-    div.element
-        div.title.caret.unselect(onclick='setCaret(this)')
+    div.element.caret(tabindex='0' onfocus="elementFocus(this)") 
+        div.title.unselect
             span.ttype  #{type} 
             span.tid.sl #{id} 
             span.tclass.sl #{classes} 
             span.dummy ...
-            div.tmenu(onclick='showmenu(this)') &times;
+            button.tdelete(tabIndex="-1" onclick='deleteElementButton') &times;
         div.content
             block
-            div.blink.caret(onclick='setCaret(this)')
+            +blinker('')
+
+mixin baseElement(type, name, args)
+    #baseElement.element.caret(tabindex='0' onfocus="elementFocus(this)") 
+        div.title.unselect
+            span.ttype  #{type} 
+            span.tname.sl #{name} 
+            span.targs.sl #{args} 
+        div.content
+            block
+            +blinker('lastbinker')
 
 mixin ttext
-    div.blink.caret(onclick='setCaret(this)')
     div.tshow.unselect(onclick='show(this)') &#9661;
-    p.ttext(contentEditable=true) hello
+    p.ttext.caret(tabindex='0' contentEditable=true onblur="textBlur(this)") 
     

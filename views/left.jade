@@ -14,6 +14,22 @@ mixin selectprop(names,myclass)
 mixin insertbutton(text,arg)
         button(onclick="insertElem('#{arg}')") #{text}
 
+mixin elementMenu()
+    #elementmenu.hide
+        datalist#supportedtypes
+            option.ttype(value="div")
+            option.ttype(value="p")
+            option(value="a")
+            option(value="button")
+            option(value="ul")
+            option(value="span")
+        div
+            div tag
+            input(type="text" list="supportedtypes", placeholder='select')
+        div    
+            div id
+            input(type="text")
+
 #left
     #lefttop 
         div.updown
@@ -27,13 +43,7 @@ mixin insertbutton(text,arg)
         +prop('class','peter','ppclass')
         +prop('','pan','ppclass')
         +prop('','','ppclass')
-        h3 Values
-        +prop('contentEditable','true','')
-        +prop('spellcheck','true','')
-        +selectprop('','')
-        h3 Events
-        +prop('onclick','myfunc')
-        +selectprop('','')
+        
     #leftinsert
         div.lcont
             h2 common
@@ -45,16 +55,6 @@ mixin insertbutton(text,arg)
             +insertbutton('h1','h1')
             +insertbutton('h2','h2')
             +insertbutton('h3','h3')
-        div.lcont
-            h2 UI
-            div input[button]
-            div input[text]
-            div ...
-        div.lcont
-            h2 list
-            div ul
-            div ol
-            div li
-
-        p#coord 
-
+    #paste 
+        button(onclick='pastetext(this)' ) insert
+        div.pastetext(contentEditable placeholder="Paste here...") 
