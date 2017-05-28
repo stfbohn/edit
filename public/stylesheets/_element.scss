@@ -33,6 +33,7 @@ div.element{
     div.title{
         display: inline-block;
         color: $color-lightgray;
+        & > span { padding-right:3px;}
         .ttype { color:$color-tag; }
         .tid{ color: $color-id; font-weight: bold; }
         .tclass{ color: $color-class; font-weight: bold; }
