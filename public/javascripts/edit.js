@@ -89,6 +89,7 @@ function elementFocus(elem){
 
     currCaret = null;
     currElement = elem;
+    //console.log('element ' + currCaret);
     leftinsert.classList.add('hide'); 
     leftprop.classList.remove('hide'); 
     
@@ -105,7 +106,7 @@ function caretFocus(caret){
     var old =getCaret(); 
     if(old != null) {
         if(old.classList.contains('blink')) {
-            console.log(old);
+            //console.log(old);
             old.parentElement.classList.remove('leftborder');
         }
     }
@@ -115,6 +116,9 @@ function caretFocus(caret){
     leftprop.classList.add('hide'); 
     leftinsert.classList.remove('hide'); 
     caret.parentElement.classList.add('leftborder');
+
+    
+    //console.log('caret ' + currCaret);
 }
 
 function refocus() {
@@ -220,7 +224,12 @@ function deleteElementButton(elem)
 }
 function insertElem(type)
 {
-    var car = getCaret();
+    var car = currCaret; 
+    if(car == null)
+    {
+        alert('caret not set');
+        return;
+    }
     var templ = null;
     var toRemove = null; 
     if('text' == type) {
@@ -240,10 +249,8 @@ function insertElem(type)
         car.parentNode.insertBefore(cl, car);
     }
     refocus();
-    carretMove(-1);
-
-    // for text special
     
+    // for text special
     if(toRemove != null){
         var nextSibling = toRemove.nextSibling; 
         if(nextSibling == null) {
@@ -317,6 +324,7 @@ function specialIndex(str)
         if(str[i] == '#' 
             || str[i] == '.' 
             || str[i] == '(' 
+            || str[i] == ' ' 
             || str[i] == ')' 
             || str[i] == ')') {
                 return i;
@@ -324,69 +332,126 @@ function specialIndex(str)
     return -1; 
 }
 
-function readJadeToNext(str){
-    var tr = str.trim();
+function readJadeToNext(x){
     var res = { before:'' , after:''};
-    var index = specialIndex(tr);
+    var index = specialIndex(x);
     if(index < 0) {
-        res.before = tr; 
+        res.before = x; 
         res.after = '';
     }
     else {
-        res.before = tr.substr(0, index);
-        res.after = tr.substr(index, tr.length-index); 
+        res.before = x.substr(0, index);
+        res.after = x.substr(index, x.length-index); 
     }
     return res; 
 }
+
+function getJadeLines(str)
+{
+    var lines = str.split('\n');
+    var res =[]; 
+    for(var i=0;i<lines.length;i++){
+        var tr = lines[i].trim();
+        if(tr.length==0){ continue; }
+        var l = {
+            indent:lines[i].search(/\S/), 
+            trim : tr, 
+            tag: 'div',
+            id: '',
+            classes: []
+        };
+        if(tr[0] == '+') {
+            l.tag = 'mixin';
+        }
+        else if(tr[0] != '#' && tr[0] != '.') {
+            var tagger = readJadeToNext(tr); 
+            l.tag = tagger.before; 
+            tr = tagger.after;
+        }
+        l.rest = tr; 
+        res.push(l);
+
+        if(tr.length==0){ console.log('done'); continue; }
+        
+        if(tr[0] == '#') {
+            tr = tr.substr(1); 
+            var idder = readJadeToNext(tr);
+            l.id = idder.before; 
+            tr = idder.after;
+        }
+        else { l.id = '' }
+
+        if(tr.length==0){ continue; }
+
+        while(tr[0] == '.') {
+            tr = tr.substr(1); 
+            var cl = readJadeToNext(tr);
+            l.classes.push(cl.before);
+            tr = cl.after; 
+            if(tr.length==0){ continue; }
+        }
+
+        if(tr.length==0){ continue; }
+
+        
+        console.log(l.indent + ":"+ l.tag +" id="+ l.id + " classes="+ l.classes); 
+        
+    }
+
+    console.log('===');
+
+    // do indent
+    if(res.length == 0) { return res; }
+    var inds =[res[0].indent]; 
+    var curr = 0; 
+    var last = 0; 
+    for(var i=0;i<res.length;i++){
+        var l = res[i]; 
+        //console.log('comp ' + res[i].indent + ' !' + inds[inds.length-1]);
+        if(l.indent > inds[inds.length-1]){
+            inds.push(l.indent); 
+            curr++;
+        }
+        while(l.indent < inds[inds.length-1])
+        {
+            inds.splice(-1,1);
+            curr--; 
+            //console.log('del ' + inds);
+        }
+        l.i2 = curr; 
+        l.di = last-curr; 
+
+        last = curr; 
+        //console.log(l.indent + ":"+ l.tag +" id="+ l.id + " classes="+ l.classes); 
+        console.log(res[i].i2 + '|' + res[i].di + ":"+ res[i].tag +" id="+ l.id + " classes="+ l.classes); 
+    }
+    return res; 
+}
+
+
 
 function pastetext(button)
 {
     var textelem = button.nextSibling; 
     console.log(textelem.innerText);
-    var lines = textelem.innerText.trim().split('\n');
-    var endstring = ''; 
-    var indents = [lines[0].search(/\S/)] ;
-    for(var i = 0;i < lines.length;i++){
-        //console.log(indent.toString() + ':' + lines[i]);
-        var indent = lines[i].search(/\S/);
-        if(indents[indents.length-1] < indent){
-            indents.push(indent);
-        }
-        else {
-            carretMove(1);
-        }
-        
-        while (indents[indents.length-1] > indent){
-            delete indents[indents.length-1];
-            carretMove(1);
-        }
-        var tr = lines[i].trim(); 
-        if(tr.length < 1) continue;
-        
-        var tag = 'div';
-        if(tr[0] != '#' && tr[0] != '.') {
-            var res = readJadeToNext(tr); 
-            tag = res.before; 
-            tr = res.after;
-        }
-        var newElem = insertElem(tag);
-        if(tr.length == 0) continue;
-        
-        if(tr[0] == '#') {
-            tr = tr.substr(1,tr.length-1);
-            var res = readJadeToNext(tr); 
-            var id = res.before; 
-            tr = res.after;
-            console.log(tag + ' id=' + id, newElem);
-            newElem.getElementsByClassName('tid')[0].innerText = id;
-        }
-        
-        console.log(tag + ' rest=' + tr);
-        
-        
-        
 
-        endstring += indent.toString() + ':' + lines[i] + '<br>'; 
+    var jjj = getJadeLines(textelem.innerText);
+
+    for(var i = 0;i < jjj.length;i++){
+        var ji = jjj[i];
+        if(ji.di != 0){
+            carretMove(jjj[i].di);
+        }
+        
+        var newElem = insertElem(ji.tag);
+        
+        if(ji.id != '') {
+            newElem.getElementsByClassName('tid')[0].innerText = ji.id; 
+        }
+        if(ji.classes.length > 0) {
+            newElem.getElementsByClassName('tclass')[0].innerText = ji.classes.join(' '); 
+        }
+        
     }
-    textelem.innerHTML = endstring;
+    //textelem.innerHTML = endstring;
 }
