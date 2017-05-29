@@ -3,6 +3,10 @@
   font-family: DejaVu;
   src: url(/fonts/DejaVu/DejaVuSansMono.ttf) format("truetype"); }
 
+@font-face {
+  font-family: Lekton;
+  src: url(/fonts/Lekton-/Lekton-Regular.ttf) format("truetype"); }
+
 /*$color-lightgray: #636363;*/
 * {
   padding: 0;
@@ -10,10 +14,10 @@
   border: 0; }
 
 html, body {
-  font-family: DejaVu,Arial, Helvetica, sans-serif;
   color: #353535; }
 
 h1, h2, h3, h4, div, ul, li, p, span, button, input, textarea {
+  font-family: Arial, Helvetica, sans-serif;
   -webkit-margin-before: 0;
   -webkit-margin-after: 0;
   font-weight: normal;
@@ -103,7 +107,7 @@ div.blink {
   left: 0;
   /*border-bottom: 2px solid white;*/
   bottom: 0;
-  padding-left: 320px; }
+  padding-left: 120px; }
 
 .tabheader {
   display: inline-block;
@@ -132,7 +136,7 @@ div.blink {
 
 #left {
   left: 0;
-  width: 300px;
+  width: 100px;
   background-color: #dbdbdb; }
 
 #whitetop {
@@ -145,33 +149,19 @@ div.blink {
 
 #base {
   margin-top: 65px;
-  margin-left: 300px;
+  margin-left: 100px;
   margin-right: 100px;
   padding: 15px;
   margin-bottom: 0;
   /*font-family: "Bookman Old Style";*/ }
+  #base #menubase {
+    background-color: darkblue;
+    color: white; }
+  #base #editbase * {
+    font-family: DejaVu,Arial, Helvetica, sans-serif; }
 
 #endbase {
   height: 200px; }
-
-#elementmenu {
-  border: 1px solid #8c8c8c;
-  position: fixed;
-  left: 10px;
-  top: 100px;
-  min-width: 100px;
-  color: #336dc4;
-  background-color: white;
-  padding: 2px; }
-  #elementmenu input {
-    color: #336dc4; }
-  #elementmenu > div {
-    margin-top: 2px; }
-    #elementmenu > div > div {
-      padding: 2px;
-      width: 50px;
-      float: left;
-      text-align: right; }
 
 #lefttop {
   height: 80px;
@@ -226,20 +216,6 @@ div.blink {
   color: #8cd3ff;
   background-color: #636363; }
 
-#paste > div.pastetext {
-  min-height: 200px;
-  overflow: scroll;
-  width: 100%;
-  background: white;
-  border: 1px solid black;
-  white-space: nowrap; }
-
-#paste > div.pastetext[contenteditable=true]:empty:before {
-  color: red;
-  content: attr(placeholder);
-  display: block;
-  /* For Firefox */ }
-
 .tshow {
   display: inline-block;
   color: #8c8c8c;
@@ -250,9 +226,8 @@ div.blink {
   padding-right: 2px;
   margin-left: -15px;
   opacity: 0.2; }
-
-.tshow:hover {
-  opacity: 1; }
+  .tshow:hover {
+    opacity: 1; }
 
 #baseElement > div.title {
   font-size: 20px; }
@@ -276,7 +251,9 @@ div.element {
     padding: 0 2px 0 2px;
     margin-right: auto; }
     div.element div.title > span {
-      padding-left: 3px; }
+      padding-right: 3px; }
+    div.element div.title > span:empty {
+      padding-right: 0; }
     div.element div.title .ttype {
       color: #336dc4; }
     div.element div.title .tid {
@@ -311,16 +288,13 @@ div.element {
         border-left: 0.5px solid $color-lightgray; 
         border-bottom: 0.5px solid $color-lightgray;
         */ }
-    div.element .content > p.ttext {
+    div.element .content p.text {
       width: 300px;
       display: inline-block;
-      margin: 1px 0 1px 0px;
-      /*color:red;*/
-      color: #8c8c8c; }
-    div.element .content > p.ttext:active, div.element .content > p.ttext:focus {
-      outline: 0;
-      border: none;
       color: black; }
+    div.element .content p.text:active, div.element .content p.text:focus {
+      outline: 0;
+      border: none; }
 
 div.element.collapse .content {
   display: none; }

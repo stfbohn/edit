@@ -1,0 +1,57 @@
+
+mixin blinker()
+    div.blink.caret(tabindex='0' onfocus="caretFocus(this)")
+
+mixin binkerEdit()
+    p.caret.edit(tabindex='0' contentEditable=true onblur="textBlur(this)") &nbsp;
+
+mixin textelement(text)
+    div.elementbox
+        +blinker()
+        div.tshow.unselect(onclick='show(this)') &#9661;
+        p.caret.text(tabindex='0' contentEditable=true onfocus="elementFocus(this)" onblur="textBlur(this)") text + &nbsp;
+
+mixin element(type, id, classes)
+    div.elementbox
+        +blinker()
+        div.tshow.unselect(onclick='show(this)') &#9661;
+        div.element.caret(tabindex='0' onfocus="elementFocus(this)") 
+            div.title 
+                span.ttype #{type}
+                span.tid.sl #{id} 
+                span.tclass.sl #{classes} 
+                span.dummy ...
+                button.tdelete.unselect(tabIndex="-1" onclick='deleteElementButton') &times;
+            div.content
+                block
+                +blinker()
+
+mixin baseElement(type, name, args)
+    div.elementbox
+        #baseElement.element.caret(tabindex='0' onfocus="elementFocus(this)") 
+            div.title.unselect
+                span.ttype  #{type} 
+                span.tname.sl #{name} 
+                span.targs.sl #{args} 
+            div.content
+                block
+                +blinker()
+
+#editbase  
+    #startbase(tabindex='0' onfocus="focusLast(this)") 
+    //include element
+    +baseElement('page', 'index', '')
+        //+element('div', 'header', 'foo bar')
+        +element('div', 'myId', '')
+            +textelement('text test')
+        +element('div', 'foo', 'hide red content')
+    #endbase(tabindex='0' onfocus="focusLast(this)") 
+
+    #element_template.hide
+      +element('TYPE', '', '')  
+    #textelement_template.hide
+      +textelement('')
+    #caret_template.hide
+      +blinker('')
+    #caretFocus_template.hide
+      +binkerEdit()

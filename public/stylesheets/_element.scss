@@ -9,10 +9,12 @@
     padding-right:$content_padding; 
     margin-left: -$content_indent;
     opacity: 0.2;
-} 
-.tshow:hover {
-    opacity: 1;
+    &:hover {
+        opacity: 1;
+    }
 }
+
+
 
 #baseElement {
     &>div.title {
@@ -34,7 +36,8 @@ div.element{
         //background-color: #ededed; //yellow
         display: inline-block;
         color: $color-lightgray;
-        & > span { padding-left: 3px;}
+        & > span { padding-right: 3px;}
+        & > span:empty { padding-right: 0; }
         .ttype { color:$color-tag; }
         .tid{ color: $color-id; font-weight: bold; }
         .tclass{ color: $color-class; font-weight: bold; }
@@ -69,18 +72,17 @@ div.element{
         border-left: 0.5px solid $color-lightgray; 
         border-bottom: 0.5px solid $color-lightgray;
         */
-        &>p.ttext
+
+        //TODO: remove this obsolete
+        p.text
         {
             width: 300px; 
             display: inline-block;
-            margin: 1px 0 1px 0px;
-            /*color:red;*/
-            color: $color-lightgray;
+            color: black;
         }
-        &>p.ttext:active, &>p.ttext:focus {
+        p.text:active, p.text:focus {
             outline:0; 
             border:none;
-            color: black;
         }
     }
 }

@@ -32,29 +32,9 @@ mixin elementMenu()
 
 #left
     #lefttop 
-        div.updown
-            button(onclick='carretMove(-1)') &#9650;
-            button(onclick='carretMove(1)') &#9660;
+        | lefttop
     #leftprop.hide
         h3 Basics
-        +prop('type','div','pptype')
-        +prop('id','myid','ppid')
-        +prop('comment','','ppcomment')
-        +prop('class','peter','ppclass')
-        +prop('','pan','ppclass')
-        +prop('','','ppclass')
         
     #leftinsert
-        div.lcont
-            h2 common
-            +insertbutton('[text]','text')
-            +insertbutton('div','div')
-            +insertbutton('p','p')
-            +insertbutton('a','a')
-            +insertbutton('span','span')
-            +insertbutton('h1','h1')
-            +insertbutton('h2','h2')
-            +insertbutton('h3','h3')
-    #paste 
-        button(onclick='pastetext(this)' ) insert
-        div.pastetext(contentEditable placeholder="Paste here...") 
+        h3 Insert

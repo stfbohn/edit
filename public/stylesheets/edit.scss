@@ -3,6 +3,13 @@
     font-family: DejaVu;
     src: url(/fonts/DejaVu/DejaVuSansMono.ttf) format("truetype");
 }
+@font-face {
+    font-family: Lekton;
+    src: url(/fonts/Lekton-/Lekton-Regular.ttf) format("truetype");
+}
+
+
+
 
 /*$color-lightgray: #636363;*/
 $font-size: 11px; 
@@ -25,10 +32,10 @@ $content_padding:2px;
 }
 
 html, body { 
-  font-family: DejaVu,Arial, Helvetica, sans-serif;
   color:#353535;
 }
 h1,h2,h3,h4,div,ul,li,p,span,button,input,textarea {
+    font-family: Arial, Helvetica, sans-serif;
     -webkit-margin-before:0;
     -webkit-margin-after:0;
     font-weight: normal;
@@ -95,6 +102,9 @@ div.blink {
     width: 100%;
 }
 
+$width-left:100px;
+$width-right:100px;
+
 #header{
     position: fixed;
     top:0;
@@ -110,7 +120,7 @@ div.blink {
     left:   0; 
     /*border-bottom: 2px solid white;*/
     bottom:   0;
-    padding-left:320px;
+    padding-left: $width-left + 20px;
 }
 .tabheader {
     display: inline-block;
@@ -137,13 +147,13 @@ div.blink {
 
 #right{
     right:0;
-    width:100px;
+    width:$width-right;
     background-color: #333333;
 }
 
 #left{
     left:0;
-    width:300px;
+    width:$width-left;
     background-color: #dbdbdb;
 }
 #whitetop
@@ -156,9 +166,18 @@ div.blink {
     background-color: white;
 }
 #base{
+    #menubase {
+        background-color: darkblue;
+        color: white;
+    }
+    #editbase {
+        * { 
+        font-family: /*Lekton,*/DejaVu,Arial, Helvetica, sans-serif; 
+        }
+    }
     margin-top:65px;
-    margin-left: 300px;
-    margin-right: 100px;
+    margin-left: $width-left;
+    margin-right: $width-right;
     padding:$content_indent;
     margin-bottom: 0;
     /*font-family: "Bookman Old Style";*/
@@ -166,30 +185,6 @@ div.blink {
 #endbase{
     height:200px;
 }
-
-#elementmenu {
-    border: 1px solid $color-lightgray;
-    position:fixed; 
-    left:10px;
-    top:100px;
-    min-width: 100px; 
-    color: $color-tag;
-    background-color: white;
-    padding: 2px;
-    input {
-        color: $color-tag;
-    }
-    & > div {
-        margin-top: 2px;
-        > div {
-            padding: 2px;
-            width:50px; 
-            float: left;
-            text-align: right
-        }
-    }
-}
-
 
 #lefttop {
     height:80px;
@@ -261,26 +256,7 @@ div.blink {
 
 }
 
-#paste{
 
-    
-
-    &>div.pastetext{
-        min-height: 200px;
-        overflow: scroll; 
-        width: 100%;
-        background: white; 
-        border: 1px solid black;
-        white-space: nowrap;
-    }
-     &>div.pastetext[contenteditable=true]:empty:before{
-        
-            color:red;
-            content: attr(placeholder);
-            display: block; /* For Firefox */
-        
-    }
-}
 
 @import "element.scss";
 

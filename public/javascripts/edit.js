@@ -1,18 +1,5 @@
 "use strict";
 
-function mousemove(e) {
-    var x = e.clientX;
-    var y = e.clientY;
-    var coor = "Coordinates: (" + x + "," + y + ")";
-    
-    document.getElementById("coord").innerHTML = coor;
-}
-
-function clearCoor() {
-    
-    document.getElementById("coord").innerHTML = "out";
-}
-
 function show(triangle){
     var elem = triangle.nextSibling;
     
@@ -31,29 +18,11 @@ function show(triangle){
             }
         }
         else {dummy.innerText = childs.length + ' children';}
-         
-
     }
     else {
         triangle.innerHTML = "&#9661;";
     }
 }
-
-var sls = document.getElementsByClassName('sl');
-for(var i=0;i<sls.length;i++){
-    sls[i].addEventListener("keypress", noReturn, true);
-}
-
-function noReturn(e)
-{
-    console.log('hello');
-  var code = e.keyCode || e.which;
-   if(code == 13) {
-      e.preventDefault();
-   }
-}
-
-
 
 var leftprop = document.getElementById('leftprop'); 
 var leftinsert = document.getElementById('leftinsert'); 
@@ -61,10 +30,8 @@ var leftinsert = document.getElementById('leftinsert');
 // CARET and ELEMENT
 
 var currCaret = null; 
-var currElement = null;
-var lastCaret = document.getElementById('lastbinker'); 
-var beforeFirstCaret = document.getElementById('startbase'); 
-var base = document.getElementById("base");
+var currElement = null;  
+var editbase = document.getElementById("editbase");
 var baseElement = document.getElementById("baseElement");
 
 function getCaret() {
@@ -83,6 +50,8 @@ function elementFocus(elem){
 
     currCaret = null;
     currElement = elem;
+    console.log('elementFocus1: caret ', currCaret);
+    console.log('elementFocus2: caret ', getCaret());
     leftinsert.classList.add('hide'); 
     leftprop.classList.remove('hide'); 
 }
@@ -95,19 +64,13 @@ function caretFocus(caret){
     }
     currElement = null;
     var newChild = caretFocus_template.childNodes[0].cloneNode(true);
-    newChild.id = caret.id;
-    if(newChild.id == 'lastbinker'){
-        lastCaret = newChild;
-    }
-
     caret.parentElement.replaceChild( newChild,caret);
     currCaret = newChild;
     currCaret.focus();
-
     leftprop.classList.add('hide'); 
     leftinsert.classList.remove('hide'); 
     currCaret.parentElement.classList.add('leftborder');
-    //console.log('caret ' + currCaret);
+    console.log('caretFocus: caret ' + currCaret);
 }
 
 function blinkEditBlur(blinkEdit)
@@ -122,22 +85,27 @@ function refocus() {
 }
 // avoids to loose focus
 function focusLast(elem) {
+    //console.log('focus last'); 
+    //console.log(elem);
+    var carets = editbase.getElementsByClassName('caret');
     if(elem.id == 'startbase'){
-        baseElement.focus();
+        var target = carets[0]; //TODO!!!
+        target.focus();
     }
     else {
-        lastCaret.focus();
+        var target = carets[0]; 
+        target.focus();
     }
 }
-focusLast(beforeFirstCaret);
+
+document.getElementsByClassName('caret')[0].focus(); 
 
 function carretMove(move) {
+    if(move == 0) { return; }
     var start = getCaret();
-
-//check
+    var divs = editbase.getElementsByClassName('caret');
 
     if(start != null) {
-        var divs = base.getElementsByClassName('caret');
         for(var i=0;i<divs.length;i++){
             if(divs[i] == start) {   
                 i += move;
@@ -147,14 +115,24 @@ function carretMove(move) {
             }
         }    
     }
+    else {
+        if(move < 0) { divs[0].focus(); }
+        else { divs[divs.length-1].focus(); }
+    }
 }
 
 function mykeypress(e) {
-    if ((e.metaKey || e.ctrlKey) && ( String.fromCharCode(e.which).toLowerCase() === 'c') ) {
-        console.log( "You pressed CTRL + C" );
-    }
+    
         e = e || window.event;
-
+    if ((e.metaKey || e.ctrlKey) && ( e.keyCode == 13 )) {
+        console.log( "You pressed CTRL + RETURN" + currCaret);
+        if(currCaret != null) {
+            console.log(currCaret.innerText);
+            pastetext(currCaret);   
+            currCaret.innerText='';
+        } 
+    }
+    /*
     if (e.keyCode == '38') {
         // up arrow
         carretUp(true);
@@ -171,10 +149,8 @@ function mykeypress(e) {
     else if (e.keyCode == '39') {
        // right arrow
     }
+    */
 }
-
-
-
 
 function addEvent(element, eventName, callback) {
     if (element.addEventListener) {
@@ -183,9 +159,9 @@ function addEvent(element, eventName, callback) {
         element.attachEvent("on" + eventName, callback);
     }
 }
-/*
+
 window.addEventListener("keydown", mykeypress, true);
-*/
+
 window.addEventListener("paste", function(e) {
     // cancel paste
     e.preventDefault();
@@ -210,12 +186,13 @@ window.addEventListener("paste", function(e) {
 
 
 var element_template = document.getElementById('element_template');
-var text_template = document.getElementById('text_template');
-var caret_template = document.getElementById('caret_template');
+var textelement_template = document.getElementById('textelement_template');
+var caret_template = document.getElementById('caret_template').childNodes[0];
 var caretFocus_template = document.getElementById('caretFocus_template');
 
 function deleteElementButton(elem)
 {
+    console.log('implement deleteElementButton');
     carretMove(1);
     var target = elem.parentElement.parentElement; 
     var caret = target.previousSibling; 
@@ -225,22 +202,96 @@ function deleteElementButton(elem)
     par.removeChild(caret);
 
 }
-function insertElem(type)
+
+function removeElement(elem)
 {
-    var car = currCaret; 
-    if(car == null)
-    {
+    if(elem == null) {
+        console.log('elem is null'); 
+        elem = getCaret(); 
+    }
+    if(elem == null) {
+        console.log('no caret'); 
+        return;
+    }
+
+    var parent = elem.parentElement;
+    var grandparent = parent.parentElement; 
+    /*console.log('DELETE');
+    console.log(elem);
+    console.log(parent);
+    console.log(grandparent); */
+
+    
+    if(!elem.classList.contains('caret')){
+        console.log('not a caret. cannot remove'); 
+        return; 
+    }
+    if(!elem.classList.contains('element') && !elem.classList.contains('text')){
+        console.log('neither a element nor a textelement. cannot remove'); 
+        return; 
+    }
+
+    if(!parent.classList.contains('elementbox')){
+        alert('remove problem 1'); 
+        return; 
+    }
+    if(!grandparent.classList.contains('content')){
+        alert('remove problem 2'); 
+        return; 
+    }
+    carretMove(2);
+    
+    grandparent.removeChild(parent); 
+
+
+
+}
+
+function insertElem(type, str)
+{
+    var car = getCaret(); 
+    if(car == null) {
         alert('caret not set');
         return;
     }
+    console.log(car.classList);
+    if(car.id == 'baseElement') {
+        alert('cannot insert before base element');
+        return;
+    }
+    if(!car.classList.contains('blink') && !car.classList.contains('edit')) {
+        console.log('need blink not element as reference'); 
+        return;
+    }
+
     var templ = null;
-    var toRemove = null; 
     if('text' == type) {
-        templ = text_template.childNodes; 
-        toRemove = currCaret; 
+        templ = textelement_template.childNodes; 
     } 
     else {
         templ = element_template.childNodes; 
+    }
+    
+    
+    
+
+    var sibling = car.parentElement;
+    var content = car.parentElement.parentElement; 
+    if(car.parentElement.classList.contains('content'))
+    {
+        console.log('other'); 
+        content = car.parentElement;
+        sibling = car; 
+    }
+    console.log('insert before'); 
+    console.log(car); 
+    console.log(sibling); 
+    console.log(content); 
+
+    
+    if(!content.classList.contains('content')){
+        alert('problem insertElem 2'); 
+        return; 
     }
 
    for(var i=0;i<templ.length;i++) {
@@ -249,57 +300,48 @@ function insertElem(type)
         if(found.length > 0) {
             found[0].innerHTML = type; 
         }
-        car.parentNode.insertBefore(cl, car);
+        content.insertBefore(cl, sibling);
     }
     refocus();
     
     // for text special
-    if(toRemove != null){
-        var nextSibling = toRemove.nextSibling; 
-        if(nextSibling == null) {
-            var parent = toRemove.parentElement; 
-            parent.removeChild(toRemove)
-        }
-        
-    }
     return cl;
 }
 function textBlur(textElement){
-    
-    var newChild = caret_template.childNodes[0].cloneNode();
-    newChild.id = textElement.id;
-     if(newChild.id == 'lastbinker'){
-        lastCaret = newChild;
-    }
-    textElement.parentElement.replaceChild(newChild,textElement);
-    currCaret =  newChild;
-   console.log('implement textBlur');
-    
-    return;
-
-
     var text = textElement.innerText.trim(); 
-    if(text.length == 0) {
-        //textElement.style.display = 'none';
+    var isNew = true; 
+    if(textElement.classList.contains('text')) {
+        isNew = false;
     }
-    return;
+    console.log('isNew:' + isNew); 
 
-    if(text.length > 0){
-        textElement.innerText = text; 
+    //TODO: insert new text element
+    //TODO: remove text element
+    //TODO: paste Jade ...
+    //TODO: fusion successive text elements
+
+    // if empty, replace by caret
+    if(text.length == 0){
+        if(isNew){
+            var newChild = caret_template.cloneNode(true);
+            textElement.parentElement.replaceChild(newChild,textElement);
+            currCaret =  newChild;
+            console.log('new empty');   
+        } 
+        else {
+            console.log('old empty: needs implemenation');
+            removeElement(textElement); 
         }
+    }
     else {
-        var par = textElement.parentElement; 
-        var triangle = textElement.previousSibling; 
-        
-        par.removeChild(triangle); 
-        par.removeChild(textElement);
-        if(par.childElementCount == 0)
-        {
-            console.log("problem");
-            var car = caret_template.childNodes[0].cloneNode(true); 
-            par.appendChild(car); 
-            console.log("New count=" + par.childElementCount);
-        }   
+        if(isNew) {
+            console.log('new  create');
+            insertElem('text',text);
+            textElement.innerHTML = '&nbsp;';
+        }
+        else {
+            console.log('old nothing');
+        }
     }
 }
 
@@ -318,7 +360,6 @@ function caretKeyDown(ev, elem)
         elementmenu.style.left= (rect.left + 15).toString() + 'px';
         elementmenu.style.top= (rect.top).toString() + 'px';
         elementmenu.classList.remove('hide'); 
-
     }
     else
     { 
@@ -452,11 +493,9 @@ function getJadeLines(str)
     return res; 
 }
 
-
-
-function pastetext(button)
+function pastetext(textelem)
 {
-    var textelem = button.nextSibling; 
+    //var textelem = button.nextSibling; 
     console.log(textelem.innerText);
 
     var jjj = getJadeLines(textelem.innerText);
@@ -477,7 +516,6 @@ function pastetext(button)
         if(ji.classes.length > 0) {
             newElem.getElementsByClassName('tclass')[0].innerText = ji.classes.join(' '); 
         }
-        
     }
     carretMove(-sum);
     //textelem.innerHTML = endstring;

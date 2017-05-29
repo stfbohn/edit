@@ -18,24 +18,31 @@ html(lang='fr')
     include left 
 
     #base(spellcheck='false')
-      #startbase(tabindex='0' onfocus="focusLast(this)") 
-      include element
-      +baseElement('page', 'index', '')
-        +element('div', 'header', 'foo bar')
-          +element('div', 'myId', '')
-          +element('div', 'foo', 'hide red content')
-      #endbase(tabindex='0' onfocus="focusLast(this)") 
+      #menubase
+        div.updown
+          button(onclick='carretMove(-1)') &#9650;
+          button(onclick='carretMove(1)') &#9660;
+        div.showbuttons
+          button(onclick='xxx(this)') id 
+          button(onclick='xxx(this)') classes
+          button(onclick='xxx(this)') properties 
+          button(onclick='xxx(this)') actions
+        div.infostr
+          |this is the description  
+        div
+          button(onclick="insertElem('text', 'new text')") insert text
+          button(onclick="insertElem('div', 'new div')") insert dic
+          button(onclick='removeElement(null)') delete
+          //button(onclick='xxx(this)') copy 
+          //button(onclick='xxx(this)') cut 
+          //button(onclick='xxx(this)') paste 
+      
+      include html
+      
     +elementMenu()
 
     include right  
-    #element_template.hide
-      +element('TYPE', '', '')  
-    #text_template.hide
-      +ttext
-    #caret_template.hide
-      +blinker('')
-    #caretFocus_template.hide
-      +binkerEdit()
+
     
     script(src="/javascripts/edit.js")          
     
