@@ -16,7 +16,7 @@ mixin element(type, id, classes)
         +blinker()
         div.tshow.unselect(onclick='show(this)') &#9661;
         div.element.caret(tabindex='0' onfocus="elementFocus(this)") 
-            div.title 
+            div.title.unselect 
                 span.ttype #{type}
                 span.tid.sl #{id} 
                 span.tclass.sl #{classes} 

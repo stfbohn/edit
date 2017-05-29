@@ -23,7 +23,7 @@ $color-tag:#336dc4; //#8cd3ff;
 $color-id:#c43232; 
 $color-class:#21891f;
 
-$content_indent:15px;
+$content_indent:10px;
 $content_padding:2px; 
 * {
     padding:0; 
@@ -165,21 +165,50 @@ $width-right:100px;
     height: 15px;
     background-color: white;
 }
+$height-basemenu: 50px;
 #base{
     #menubase {
+        position:fixed;
+        top:65px;
+        left: $width-left;
+        right: $width-right;
+        height: $height-basemenu;
         background-color: darkblue;
-        color: white;
+        color: black;
+        
+        display: flex; 
+        flex-direction: row; 
+        justify-content: left;
+        align-items: center;
+
+        button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: black;
+        }
+        & > button {
+            padding: 5px;
+        }
+        & > .updown {
+            display: flex; 
+            flex-direction: column;
+            justify-content: center;
+            /*width:15px;*/
+        }
+        
     }
     #editbase {
+        margin-top:65px + $height-basemenu;
+        margin-left: $width-left;
+        margin-right: $width-right;
+        margin-bottom: 0;
+        padding:$content_indent;
         * { 
         font-family: /*Lekton,*/DejaVu,Arial, Helvetica, sans-serif; 
         }
     }
-    margin-top:65px;
-    margin-left: $width-left;
-    margin-right: $width-right;
-    padding:$content_indent;
-    margin-bottom: 0;
+    
     /*font-family: "Bookman Old Style";*/
 }
 #endbase{

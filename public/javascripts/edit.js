@@ -42,12 +42,22 @@ function getCaret() {
 
 var elementmenu = document.getElementById('elementmenu'); 
 
+function getContentParent(elem)
+{
+    var par = elem.parentElement; 
+    if(par.classList.remove('content')){
+        return  par; 
+    }
+    return par.parentElement; 
+}
+
 function elementFocus(elem){
+    /*
     var old =getCaret(); 
     if(old != null) {
-        old.parentElement.classList.remove('leftborder');
+        getContentParent(old).classList.remove('leftborder');
     }
-
+    */
     currCaret = null;
     currElement = elem;
     console.log('elementFocus1: caret ', currCaret);
@@ -58,10 +68,11 @@ function elementFocus(elem){
 
 function caretFocus(caret){
     
-    var old =getCaret(); 
+    /*var old =getCaret(); 
     if(old != null) {
-        old.parentElement.classList.remove('leftborder');
+        getContentParent(old).classList.remove('leftborder');
     }
+    */
     currElement = null;
     var newChild = caretFocus_template.childNodes[0].cloneNode(true);
     caret.parentElement.replaceChild( newChild,caret);
@@ -69,7 +80,7 @@ function caretFocus(caret){
     currCaret.focus();
     leftprop.classList.add('hide'); 
     leftinsert.classList.remove('hide'); 
-    currCaret.parentElement.classList.add('leftborder');
+    //getContentParent(currCaret).classList.add('leftborder');
     console.log('caretFocus: caret ' + currCaret);
 }
 
@@ -127,9 +138,10 @@ function mykeypress(e) {
     if ((e.metaKey || e.ctrlKey) && ( e.keyCode == 13 )) {
         console.log( "You pressed CTRL + RETURN" + currCaret);
         if(currCaret != null) {
-            console.log(currCaret.innerText);
-            pastetext(currCaret);   
+            var text = currCaret.innerText; 
             currCaret.innerText='';
+            console.log('shall paste ' + text);
+            pastetext(text);  
         } 
     }
     /*
@@ -271,9 +283,6 @@ function insertElem(type, str)
     else {
         templ = element_template.childNodes; 
     }
-    
-    
-    
 
     var sibling = car.parentElement;
     var content = car.parentElement.parentElement; 
@@ -294,18 +303,26 @@ function insertElem(type, str)
         return; 
     }
 
-   for(var i=0;i<templ.length;i++) {
+    console.log('templ.length' + templ.length); 
+    var res = null; 
+    for(var i=0;i<templ.length;i++) {
         var cl = templ[i].cloneNode(true);
         var found = cl.getElementsByClassName('ttype'); 
         if(found.length > 0) {
             found[0].innerHTML = type; 
         }
+        if(type='text') {
+            found = cl.getElementsByClassName('text'); 
+            if(found.length > 0) {
+                found[0].innerHTML = str; 
+            }
+        }
+        res = cl; 
         content.insertBefore(cl, sibling);
     }
     refocus();
     
-    // for text special
-    return cl;
+    return cl; 
 }
 function textBlur(textElement){
     var text = textElement.innerText.trim(); 
@@ -423,7 +440,8 @@ function getJadeLines(str)
             trim : tr, 
             tag: 'div',
             id: '',
-            classes: []
+            classes: [],
+            text:''
         };
         if(tr[0] == '+') {
             l.tag = 'mixin';
@@ -458,9 +476,9 @@ function getJadeLines(str)
 
         if(tr.length==0){ continue; }
 
-        
-        console.log(l.indent + ":"+ l.tag +" id="+ l.id + " classes="+ l.classes); 
-        
+        l.text = tr.trim(); 
+
+        console.log(l.indent + ":"+ l.tag +" id="+ l.id + " classes="+ l.classes + ' text='+l.text); 
     }
 
     console.log('===');
@@ -493,12 +511,12 @@ function getJadeLines(str)
     return res; 
 }
 
-function pastetext(textelem)
+function pastetext(text)
 {
     //var textelem = button.nextSibling; 
-    console.log(textelem.innerText);
+    console.log(text);
 
-    var jjj = getJadeLines(textelem.innerText);
+    var jjj = getJadeLines(text);
 
     var sum = 0;
     for(var i = 0;i < jjj.length;i++){
@@ -515,6 +533,12 @@ function pastetext(textelem)
         }
         if(ji.classes.length > 0) {
             newElem.getElementsByClassName('tclass')[0].innerText = ji.classes.join(' '); 
+        }
+        if(ji.text.length > 0)
+        {
+            carretMove(-1);
+            insertElem('text', ji.text);
+            carretMove(1);
         }
     }
     carretMove(-sum);

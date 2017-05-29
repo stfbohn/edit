@@ -19,20 +19,13 @@ html(lang='fr')
 
     #base(spellcheck='false')
       #menubase
-        div.updown
+        .updown
           button(onclick='carretMove(-1)') &#9650;
           button(onclick='carretMove(1)') &#9660;
-        div.showbuttons
-          button(onclick='xxx(this)') id 
-          button(onclick='xxx(this)') classes
-          button(onclick='xxx(this)') properties 
-          button(onclick='xxx(this)') actions
-        div.infostr
-          |this is the description  
-        div
-          button(onclick="insertElem('text', 'new text')") insert text
-          button(onclick="insertElem('div', 'new div')") insert dic
-          button(onclick='removeElement(null)') delete
+        //.buttons
+        button(onclick="insertElem('text', 'new text')") +text
+        button(onclick="insertElem('div', 'new div')") +node
+        button(onclick='removeElement(null)') delete
           //button(onclick='xxx(this)') copy 
           //button(onclick='xxx(this)') cut 
           //button(onclick='xxx(this)') paste 
