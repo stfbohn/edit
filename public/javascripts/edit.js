@@ -1,6 +1,8 @@
 "use strict";
 
 function show(triangle){
+    console.error('needs to be rewritten'); 
+
     var elem = triangle.nextSibling;
     
     elem.classList.toggle('collapse');
@@ -28,112 +30,16 @@ function show(triangle){
     }
 }
 
-var leftprop = document.getElementById('leftprop'); 
-var leftinsert = document.getElementById('leftinsert'); 
 
 // CARET and ELEMENT
 
-var currCaret = null; 
-var currElement = null;  
 var editbase = document.getElementById("editbase");
 var baseElement = document.getElementById("baseElement");
 
-function getCaret() {
-    if(currCaret != null) return currCaret;
-    if(currElement != null) return currElement;
-    return null; 
-}
-
 var elementmenu = document.getElementById('elementmenu'); 
 
-function getContentParent(elem)
-{
-    var par = elem.parentElement; 
-    if(par.classList.remove('content')){
-        return  par; 
-    }
-    return par.parentElement; 
-}
-
-function elementFocus(elem){
-    /*
-    var old =getCaret(); 
-    if(old != null) {
-        getContentParent(old).classList.remove('leftborder');
-    }
-    */
-    currCaret = null;
-    currElement = elem;
-    leftinsert.classList.add('hide'); 
-    leftprop.classList.remove('hide'); 
-}
-
-function caretFocus(caret){
-    
-    /*var old =getCaret(); 
-    if(old != null) {
-        getContentParent(old).classList.remove('leftborder');
-    }
-    */
-    currElement = null;
-    var newChild = caretFocus_template.childNodes[0].cloneNode(true);
-    caret.parentElement.replaceChild( newChild,caret);
-    currCaret = newChild;
-    currCaret.focus();
-    leftprop.classList.add('hide'); 
-    leftinsert.classList.remove('hide'); 
-    //getContentParent(currCaret).classList.add('leftborder');
-}
-
-function blinkEditBlur(blinkEdit)
-{
-    //blinkEdit.style.display = 'none';
-    console.log('whatr the hell');
-}
-
-function refocus() {
-    if(currCaret!= null) currCaret.focus(); 
-    else if(currElement != null) currElement.focus();
-}
-// avoids to loose focus
-function focusLast(elem) {
-    var carets = editbase.getElementsByClassName('caret');
-    if(elem.id == 'startbase'){
-        var target = carets[0]; //TODO!!!
-        target.focus();
-    }
-    else {
-        var target = carets[0]; 
-        target.focus();
-    }
-}
-
-document.getElementsByClassName('caret')[0].focus(); 
-
-function carretMove(move) {
-    if(move == 0) { return; }
-    var start = getCaret();
-    var divs = editbase.getElementsByClassName('caret');
-
-    if(start != null) {
-        for(var i=0;i<divs.length;i++){
-            if(divs[i] == start) {   
-                i += move;
-                i = Math.min(divs.length-1,Math.max(0,i));
-                divs[i].focus();    
-                return;
-            }
-        }    
-    }
-    else {
-        if(move < 0) { divs[0].focus(); }
-        else { divs[divs.length-1].focus(); }
-    }
-}
-
 function mykeypress(e) {
-    
-        e = e || window.event;
+    e = e || window.event;
     if ((e.metaKey || e.ctrlKey) && ( e.keyCode == 13 )) {
         console.log( "You pressed CTRL + RETURN" + currCaret);
         if(currCaret != null) {
@@ -195,158 +101,6 @@ window.addEventListener("paste", function(e) {
 
 
 var element_template = document.getElementById('element_template');
-var textelement_template = document.getElementById('textelement_template');
-var caret_template = document.getElementById('caret_template').childNodes[0];
-var caretFocus_template = document.getElementById('caretFocus_template');
-
-function deleteElementButton(elem)
-{
-    carretMove(1);
-    var target = elem.parentElement.parentElement; 
-    var caret = target.previousSibling; 
-    var par = target.parentElement; 
-    par.removeChild(target);
-    par.removeChild(caret);
-
-}
-
-function removeElement(elem)
-{
-    if(elem == null) {
-        console.log('elem is null'); 
-        elem = getCaret(); 
-    }
-    if(elem == null) {
-        console.log('no caret'); 
-        return;
-    }
-
-    var parent = elem.parentElement;
-    var grandparent = parent.parentElement; 
-    /*console.log('DELETE');
-    console.log(elem);
-    console.log(parent);
-    console.log(grandparent); */
-
-    
-    if(!elem.classList.contains('caret')){
-        console.log('not a caret. cannot remove'); 
-        return; 
-    }
-    if(!elem.classList.contains('element') && !elem.classList.contains('text')){
-        console.log('neither a element nor a textelement. cannot remove'); 
-        return; 
-    }
-
-    if(!parent.classList.contains('elementbox')){
-        alert('remove problem 1'); 
-        return; 
-    }
-    if(!grandparent.classList.contains('content')){
-        alert('remove problem 2'); 
-        return; 
-    }
-    carretMove(2);
-    
-    grandparent.removeChild(parent); 
-
-
-
-}
-
-function insertElem(type, str)
-{
-    var car = getCaret(); 
-    if(car == null) {
-        alert('caret not set');
-        return;
-    }
-    if(car.id == 'baseElement') {
-        alert('cannot insert before base element');
-        return;
-    }
-    if(!car.classList.contains('blink') && !car.classList.contains('edit')) {
-        console.log('need blink not element as reference'); 
-        return;
-    }
-
-    var templ = null;
-    if('text' == type) {
-        templ = textelement_template.childNodes; 
-    } 
-    else {
-        templ = element_template.childNodes; 
-    }
-
-    var sibling = car.parentElement;
-    var content = car.parentElement.parentElement; 
-    if(car.parentElement.classList.contains('content'))
-    {
-        content = car.parentElement;
-        sibling = car; 
-    }
-    
-    if(!content.classList.contains('content')){
-        alert('problem insertElem 2'); 
-        return; 
-    }
-
-    var res = null; 
-    for(var i=0;i<templ.length;i++) {
-        var cl = templ[i].cloneNode(true);
-        var found = cl.getElementsByClassName('ttype'); 
-        if(found.length > 0) {
-            found[0].innerHTML = type; 
-        }
-        if(type='text') {
-            found = cl.getElementsByClassName('text'); 
-            if(found.length > 0) {
-                found[0].innerHTML = str; 
-            }
-        }
-        res = cl; 
-        content.insertBefore(cl, sibling);
-    }
-    refocus();
-    
-    cleanSpaces(); 
-    return cl; 
-}
-function textBlur(textElement){
-    var text = textElement.innerText.trim(); 
-    var isNew = true; 
-    if(textElement.classList.contains('text')) {
-        isNew = false;
-    }
-    
-
-    //TODO: insert new text element
-    //TODO: remove text element
-    //TODO: paste Jade ...
-    //TODO: fusion successive text elements
-
-    // if empty, replace by caret
-    if(text.length == 0){
-        if(isNew){
-            var newChild = caret_template.cloneNode(true);
-            textElement.parentElement.replaceChild(newChild,textElement);
-            currCaret =  newChild;
-              
-        } 
-        else {
-            console.log('old empty: needs implemenation');
-            removeElement(textElement); 
-        }
-    }
-    else {
-        if(isNew) {
-            insertElem('text',text);
-            textElement.innerHTML = '&nbsp;';
-        }
-        else {
-        }
-    }
-}
 
 function caretKeyDown(ev, elem)
 {
@@ -450,7 +204,7 @@ function getJadeLines(str)
         l.rest = tr; 
         res.push(l);
 
-        if(tr.length==0){ console.log('done'); continue; }
+        if(tr.length==0){ continue; }
         
         if(tr[0] == '#') {
             tr = tr.substr(1); 
@@ -473,9 +227,6 @@ function getJadeLines(str)
         if(tr.length==0){ continue; }
 
         if(tr[0] == '(') {
-            //tr = tr.substr(1); 
-            //var pr = readJadeToNext(tr,'#.()');
-
             // parathesis
             var xxx = {
             before:'',
@@ -503,10 +254,10 @@ function getJadeLines(str)
 
         l.text = tr.trim(); 
 
-        console.log(l.indent + ":"+ l.tag +" id="+ l.id + " classes="+ l.classes + ' text='+l.text); 
+        //console.log(l.indent + ":"+ l.tag +" id="+ l.id + " classes="+ l.classes + ' text='+l.text); 
     }
 
-    console.log('===');
+    //console.log('===');
 
     // do indent
     if(res.length == 0) { return res; }
@@ -531,7 +282,7 @@ function getJadeLines(str)
 
         last = curr; 
         //console.log(l.indent + ":"+ l.tag +" id="+ l.id + " classes="+ l.classes); 
-        console.log(res[i].i2 + '|' + res[i].di + ":"+ res[i].tag +" id="+ l.id + " classes="+ l.classes); 
+        //console.log(res[i].i2 + '|' + res[i].di + ":"+ res[i].tag +" id="+ l.id + " classes="+ l.classes); 
     }
     return res; 
 }
@@ -587,3 +338,122 @@ function cleanSpaces()
     console.log('done');
 }
 cleanSpaces(); 
+
+// new ones
+
+// avoids to loose focus
+
+
+
+
+let current_focus = null; 
+
+function formatPug(org, doFormat) {
+    if(!doFormat){
+        return org.replace(/<\/?span[^>]*>/g,"");
+    }
+    else {
+        var jjj = getJadeLines(org.replace(/<\/?span[^>]*>/g,""));
+        if(jjj.length == 0) {
+            console.warn('empty!!'); 
+            return ''; 
+        }
+        else if(jjj.length == 1) {
+            //console.log(jjj[0]); 
+
+            let str = jjj[0].tag; 
+            if(jjj[0].id.length > 0) {
+                str +=  "<span style='color:red'>#" + jjj[0].id + "</span>"; 
+            } 
+            
+            if(jjj[0].classes.length > 0) {
+                str +=  "<span style='color:green'>." + jjj[0].classes.join('.') + "</span>"; 
+            } 
+            if(jjj[0].text.length > 0) {
+                str +=  "<span style='color:purple'> " + jjj[0].text + "</span>";
+            }
+            return str; 
+        }
+        else {
+            return 'conversion failed:' + str; 
+        }
+    }
+}
+
+function onFocusEmpty(sender){
+    current_focus = sender; 
+}
+function onBlurEmpty(sender){
+    if(sender.innerText.trim().length > 0)
+    {
+        insertLine(sender.innerText, sender); 
+    }
+    sender.innerHTML = ''; 
+}
+function onFocusLine(sender){
+    current_focus = sender; 
+    sender.innerHTML = formatPug(sender.innerHTML, false); 
+}
+function onBlurLine(sender) {
+    let formated = formatPug(sender.innerHTML, true); 
+    sender.innerHTML = formated;
+    console.warn('onBlurLine: empty is not checked yet');
+}
+
+//init
+function focusLast(elem) {
+    var emptyLines = editbase.getElementsByClassName('empty');
+    if(elem.id == 'startbase'){
+        emptyLines[emptyLines.length-1].focus(); 
+    }
+    else {
+        var target = emptyLines[0].focus();; 
+    }
+}
+
+function focusMove(move) {
+    if(move == 0) { return; } 
+    let divs = editbase.getElementsByClassName('line');
+    if(current_focus != null) {
+        for(let i=0;i<divs.length;i++){
+            if(divs[i] == current_focus) {   
+                i += move;
+                i = Math.min(divs.length-1,Math.max(0,i));
+                divs[i].focus();    
+                return;
+            }
+        }    
+    }
+    else {
+        if(move < 0) { divs[0].focus(); }
+        else { divs[divs.length-1].focus(); }
+    }
+}
+
+let starter = editbase.getElementsByClassName('empty');
+starter[starter.length -1].focus(); 
+
+// insert + delete
+function insertLine(text, refer) {
+    if(refer == undefined) {
+        refer = current_focus; 
+    }    
+    if(refer.classList.contains('full')){
+        focusMove(1); 
+        refer = current_focus; 
+    }
+    if(!refer.classList.contains('empty')) {
+        console.warn('insert failed 1'); 
+        return; 
+    };
+
+    let elementbox = refer.parentElement; 
+    if(!elementbox.classList.contains('elementbox')) {
+        console.warn('insert failed 2'); 
+        return; 
+    }; 
+    let newChild = element_template.childNodes[0].cloneNode(true);
+    newChild.getElementsByClassName('full')[0].innerHTML = formatPug(text, true);  
+    elementbox.parentElement.insertBefore(newChild, elementbox); 
+    refer.focus();   
+}

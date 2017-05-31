@@ -9,6 +9,10 @@ html(lang='fr')
   body(spellcheck=false)
     
     #header
+      .group
+        .choice raw
+        .choice dyn
+        .choice gui
       //.tabcontainer
         .tabheader.tabselect content
         .tabheader style
@@ -19,12 +23,12 @@ html(lang='fr')
     #base(spellcheck='false')
       #menubase
         .updown
-          button(onclick='carretMove(-1)') &#9650;
-          button(onclick='carretMove(1)') &#9660;
+          button(onclick='focusMove(-1)' tabindex='-1') &#9650;
+          button(onclick='focusMove(1)' tabindex='-1') &#9660;
         //.buttons
-        button(onclick="insertElem('text', 'new text')") +text
-        button(onclick="insertElem('div', 'new div')") +node
-        button(onclick='removeElement(null)') delete 
+        button(onclick="insertLine('text')" tabindex='-1') +text
+        button(onclick="insertLine('div')" tabindex='-1') +node
+        button(onclick='removeElement(null)' tabindex='-1') delete 
       
       include html
       

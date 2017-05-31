@@ -22,7 +22,7 @@ $color-tag:#336dc4; //#8cd3ff;
 $color-id:#c43232; 
 $color-class:#21891f;
 
-$content_indent:10px;
+$content_indent:15px;
 $content_padding:2px; 
 * {
     padding:0; 
@@ -111,6 +111,23 @@ $width-right:100px;
     right: 0;
     height:50px;
     background-color: #140068;
+    display: flex; 
+    align-items: center;
+    /*justify-content: center;*/
+    .group {
+        display: flex; 
+        align-items: center;
+        border: 1px solid $color-lightgray;
+        padding-left: 4px;
+    }
+    .choice {
+        background: $color-lightgray;
+        padding: 5px; 
+        margin: 4px;
+        margin-left: 0;
+        width: 35px;
+        text-align: center;
+    }
 }
 
 .tabcontainer {
@@ -288,6 +305,52 @@ $height-basemenu: 50px;
 
 @import "element.scss";
 
+$height-halfline: 8px;
+$height-line: 2*$height-halfline;
 
 
+h2 {
+    font-size: 2*$font-size;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.linebox {
+    display: flex; 
+    align-items: flex-start;
+}
+$width-collapse: 10px;
+
+.collapse {
+    /*background-color: red;*/
+    width:$width-collapse;
+    height: $height-line;
+    text-align: center;
+}
+.line.full {
+    min-height: $height-line;
+    &:focus
+    {
+        /*margin-top: $height-halfline; 
+        margin-bottom: $height-halfline;*/
+        background-color: $color-outline;
+    }
+}
+.line.empty {
+    margin-left: $width-collapse;
+    height: 0; 
+    &:focus
+    {
+        min-height: $height-line; 
+        height: auto; 
+        background-color: $color-outline;
+    }
+}
+.content {
+    margin-left: $content_indent;
+    /*
+    border-left: 0.5px solid black; 
+    border-bottom: 0.5px solid black;
+    */ 
+}
         

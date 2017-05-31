@@ -11,7 +11,7 @@ mixin textelement(text)
         div.tshow.unselect(onclick='show(this)') &#9661;
         p.caret.text(tabindex='0' contentEditable=true onfocus="elementFocus(this)" onblur="textBlur(this)") text + &nbsp;
 
-mixin element(type, id, classes)
+mixin element_old(type, id, classes)
     div.elementbox
         +blinker()
         div.tshow.unselect(onclick='show(this)') &#9661;
@@ -26,32 +26,39 @@ mixin element(type, id, classes)
                 block
                 +blinker()
 
+mixin element(text)
+    div.elementbox
+        div.line.empty(contenteditable="true" tabindex='0' onFocus="onFocusEmpty(this)" onblur="onBlurEmpty(this)")
+        div.linebox
+            div.collapse(onclick='show(this)') &#9661;
+            div.line.full(contenteditable="true" tabindex='0' onFocus="onFocusLine(this)" onblur="onBlurLine(this)") #{text}
+        div.content
+            block
+            div.elementbox
+                div.line.empty(contenteditable="true" tabindex='0' onFocus="onFocusEmpty(this)" onblur="onBlurEmpty(this)")
+
 mixin baseElement(type, name, args)
     div.elementbox
-        #baseElement.element.caret(tabindex='0' onfocus="elementFocus(this)") 
-            div.title.unselect
-                span.ttype  #{type} 
-                span.tname.sl #{name} 
-                span.targs.sl #{args} 
-            div.content
-                block
-                +blinker()
+        h2 #{type} #{name}
+        div.content
+            block
+            div.elementbox
+                div.line.empty(contenteditable="true" tabindex='0' onFocus="onFocusEmpty(this)" onblur="onBlurEmpty(this)")
 
 #editbase  
     #startbase(tabindex='0' onfocus="focusLast(this)") 
-    //include element
-    +baseElement('page', 'index', '')
-        //+element('div', 'header', 'foo bar')
-        +element('div', 'myId', '')
-            +textelement('text test')
-        +element('div', 'foo', 'hide red content')
+    +baseElement('page','myPage','args')
+        +element('#first')
+        +element('div#myId no classes')
+            +element('|text')
+        +element('div#foo.hide.red.content the text is this')
     #endbase(tabindex='0' onfocus="focusLast(this)") 
 
-    #element_template.hide
-      +element('TYPE', '', '')  
-    #textelement_template.hide
-      +textelement('')
-    #caret_template.hide
-      +blinker('')
-    #caretFocus_template.hide
-      +binkerEdit()
+#element_template.hide
+    +element('')  
+#textelement_template.hide
+    +textelement('')
+#caret_template.hide
+    +blinker('')
+#caretFocus_template.hide
+    +binkerEdit()

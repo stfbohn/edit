@@ -85,26 +85,7 @@ div.element{
     &:focus > div.title{
          background-color:$color-outline;
     }
-    .content {
-        margin-left: $content_indent;
-        /*
-        border-left: 0.5px solid $color-lightgray; 
-        border-bottom: 0.5px solid $color-lightgray;
-        */
-
-        //TODO: remove this obsolete
-        p.text
-        {
-            width: 300px; 
-            display: inline-block;
-            color: black;
-            height: $font-size;
-        }
-        p.text:active, p.text:focus {
-            outline:0; 
-            border:none;
-        }
-    }
+    
 }
 
 div.element.collapse {
