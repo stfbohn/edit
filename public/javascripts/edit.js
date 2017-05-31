@@ -184,6 +184,7 @@ function getJadeLines(str)
     for(var i=0;i<lines.length;i++){
         var tr = lines[i].trim();
         if(tr.length==0){ continue; }
+
         var l = {
             indent:lines[i].search(/\S/), 
             trim : tr, 
@@ -193,7 +194,12 @@ function getJadeLines(str)
             props:'',
             text:''
         };
-        if(tr[0] == '+') {
+        if(tr[0] == '|') {
+            l.tag = '|'; 
+            l.text = tr.substr(1); 
+            tr = ''; 
+        }
+        else if(tr[0] == '+') {
             l.tag = 'mixin';
         }
         else if(tr[0] != '#' && tr[0] != '.') {
@@ -361,16 +367,22 @@ function formatPug(org, doFormat) {
         else if(jjj.length == 1) {
             //console.log(jjj[0]); 
 
-            let str = jjj[0].tag; 
+ 
+ 
+            let str = "<span class='ta' tabindex='-1'>" + jjj[0].tag + "</span>";   
             if(jjj[0].id.length > 0) {
-                str +=  "<span style='color:red'>#" + jjj[0].id + "</span>"; 
+                str +=  "<span class='id' tabindex='-1'>#" + jjj[0].id + "</span>"; 
             } 
             
             if(jjj[0].classes.length > 0) {
-                str +=  "<span style='color:green'>." + jjj[0].classes.join('.') + "</span>"; 
+                str +=  "<span class='cl' tabindex='-1'>." + jjj[0].classes.join('.') + "</span>"; 
             } 
+              if(jjj[0].classes.length > 0) {
+                str +=  "(<span class='pr' tabindex='-1'>" + jjj[0].props + "</span>)"; 
+            } 
+                
             if(jjj[0].text.length > 0) {
-                str +=  "<span style='color:purple'> " + jjj[0].text + "</span>";
+                str +=  " " + jjj[0].text; 
             }
             return str; 
         }

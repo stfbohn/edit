@@ -359,6 +359,15 @@ h2 {
     /*margin-top: $height-halfline; 
         margin-bottom: $height-halfline;*/
     background-color: #cecece; }
+  .line.full .ta {
+    color: #336dc4; }
+  .line.full .id {
+    color: #c43232;
+    /*font-weight: bold; */ }
+  .line.full .cl {
+    color: #21891f; }
+  .line.full .pr {
+    color: #7a0065; }
 
 .line.empty {
   margin-left: 10px;
