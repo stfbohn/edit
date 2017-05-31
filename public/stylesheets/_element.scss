@@ -36,12 +36,37 @@ div.element{
         //background-color: #ededed; //yellow
         display: inline-block;
         color: $color-lightgray;
-        & > span { padding-right: 3px;}
-        & > span:empty { padding-right: 0; }
+        //& > span { padding-right: 3px;}
+        //& > span:empty { padding-right: 0; }
         .ttype { color:$color-tag; }
-        .tid{ color: $color-id; font-weight: bold; }
-        .tclass{ color: $color-class; font-weight: bold; }
-        .dummy { color: black; opacity: 0; }
+        .tid{ 
+            color: $color-id; /*font-weight: bold; */
+            &::before { content: '#'; }
+            &:empty { &::before { content: ''} }
+        }
+        .tclass{ 
+            color: $color-class;  
+            &::before { content: '.'; }
+            &:empty { &::before { content: ''} }
+        }
+        
+        .tprop{ 
+            color: #7a0065; 
+            &::before {
+                content: '(';
+                color: black;
+            }
+            &::after{
+                content: ')';
+                color: black;
+            }
+            &:empty { 
+                &::before { content: ''; }  
+                &::after { content: ''; }
+                }
+        }
+
+        .dummy { color: black; opacity: 0; margin-left:5px; font-weight: bold;}
         .tdelete { 
             display: inline-block;
             height:10px;
@@ -54,17 +79,11 @@ div.element{
             background-color: white;
         }
 
-        &:hover .tdelete { 
-            padding: 1px;
-            color: black; 
-            border: 1px solid black; 
-            border-radius: 2px; 
-            }
         padding: 0 $content_padding 0 $content_padding;
         margin-right: auto;
     }
     &:focus > div.title{
-         background-color:$color-outline;;
+         background-color:$color-outline;
     }
     .content {
         margin-left: $content_indent;
@@ -79,6 +98,7 @@ div.element{
             width: 300px; 
             display: inline-block;
             color: black;
+            height: $font-size;
         }
         p.text:active, p.text:focus {
             outline:0; 

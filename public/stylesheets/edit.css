@@ -21,7 +21,7 @@ h1, h2, h3, h4, div, ul, li, p, span, button, input, textarea {
   -webkit-margin-before: 0;
   -webkit-margin-after: 0;
   font-weight: normal;
-  font-size: 11px;
+  font-size: 12px;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box; }
@@ -272,21 +272,38 @@ div.element {
     color: #8c8c8c;
     padding: 0 2px 0 2px;
     margin-right: auto; }
-    div.element div.title > span {
-      padding-right: 3px; }
-    div.element div.title > span:empty {
-      padding-right: 0; }
     div.element div.title .ttype {
       color: #336dc4; }
     div.element div.title .tid {
       color: #c43232;
-      font-weight: bold; }
+      /*font-weight: bold; */ }
+      div.element div.title .tid::before {
+        content: '#'; }
+      div.element div.title .tid:empty::before {
+        content: ''; }
     div.element div.title .tclass {
-      color: #21891f;
-      font-weight: bold; }
+      color: #21891f; }
+      div.element div.title .tclass::before {
+        content: '.'; }
+      div.element div.title .tclass:empty::before {
+        content: ''; }
+    div.element div.title .tprop {
+      color: #7a0065; }
+      div.element div.title .tprop::before {
+        content: '(';
+        color: black; }
+      div.element div.title .tprop::after {
+        content: ')';
+        color: black; }
+      div.element div.title .tprop:empty::before {
+        content: ''; }
+      div.element div.title .tprop:empty::after {
+        content: ''; }
     div.element div.title .dummy {
       color: black;
-      opacity: 0; }
+      opacity: 0;
+      margin-left: 5px;
+      font-weight: bold; }
     div.element div.title .tdelete {
       display: inline-block;
       height: 10px;
@@ -297,11 +314,6 @@ div.element {
       color: white;
       border: 1px solid white;
       background-color: white; }
-    div.element div.title:hover .tdelete {
-      padding: 1px;
-      color: black;
-      border: 1px solid black;
-      border-radius: 2px; }
   div.element:focus > div.title {
     background-color: #cecece; }
   div.element .content {
@@ -313,7 +325,8 @@ div.element {
     div.element .content p.text {
       width: 300px;
       display: inline-block;
-      color: black; }
+      color: black;
+      height: 12px; }
     div.element .content p.text:active, div.element .content p.text:focus {
       outline: 0;
       border: none; }

@@ -9,13 +9,12 @@ html(lang='fr')
   body(spellcheck=false)
     
     #header
-      .tabcontainer
+      //.tabcontainer
         .tabheader.tabselect content
         .tabheader style
         .tabheader script
         .tabheader preview
-    #whitetop
-    include left 
+    #whitetop 
 
     #base(spellcheck='false')
       #menubase
@@ -25,17 +24,11 @@ html(lang='fr')
         //.buttons
         button(onclick="insertElem('text', 'new text')") +text
         button(onclick="insertElem('div', 'new div')") +node
-        button(onclick='removeElement(null)') delete
-          //button(onclick='xxx(this)') copy 
-          //button(onclick='xxx(this)') cut 
-          //button(onclick='xxx(this)') paste 
+        button(onclick='removeElement(null)') delete 
       
       include html
       
-    +elementMenu()
+    //+elementMenu() 
 
-    include right  
-
-    
     script(src="/javascripts/edit.js")          
     

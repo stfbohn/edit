@@ -19,9 +19,9 @@ mixin element(type, id, classes)
             div.title.unselect 
                 span.ttype #{type}
                 span.tid.sl #{id} 
-                span.tclass.sl #{classes} 
+                span.tclass.sl #{classes}
+                span.tprop.sl
                 span.dummy ...
-                button.tdelete.unselect(tabIndex="-1" onclick='deleteElementButton') &times;
             div.content
                 block
                 +blinker()
