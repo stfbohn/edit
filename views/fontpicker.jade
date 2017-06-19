@@ -8,16 +8,20 @@ html(lang='fr')
     link(rel='stylesheet', type='text/css', href='/stylesheets/font.css')
   body(spellcheck=false)
     #menu
-      button options
-      button about
-      button header &#x2713;
-      button text &#x2713;
-      button all &#x2715;
+      button.options options
+      div
+        button#wbh.what.sel(onclick='what("bodyheader")') body and header
+        button#wb.what(onclick='what("body")') body
+        button#wh.what(onclick='what("header")') header 
+      button.colors(onclick='colors(true)')
+      button.about about
+      //button.colors colors &#x2713;
+      //button.about about &#x2715;
     include fonttext
     div#container
-      +text('fff')
-      +text('fff')
-      +text('fff')
+      +text('f1')
+      +text('f2')
+      //+text('fff')
     script(src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js")
     script(src="/javascripts/font.js")          
     
