@@ -354,7 +354,7 @@ cleanSpaces();
 
 let current_focus = null; 
 
-function formatPug(org, doFormat) {
+function formatPug(org, doFormat) { 
     if(!doFormat){
         return org.replace(/<\/?span[^>]*>/g,"");
     }
@@ -366,28 +366,23 @@ function formatPug(org, doFormat) {
         }
         else if(jjj.length == 1) {
             //console.log(jjj[0]); 
-
- 
- 
             let str = "<span class='ta' tabindex='-1'>" + jjj[0].tag + "</span>";   
             if(jjj[0].id.length > 0) {
                 str +=  "<span class='id' tabindex='-1'>#" + jjj[0].id + "</span>"; 
             } 
-            
             if(jjj[0].classes.length > 0) {
                 str +=  "<span class='cl' tabindex='-1'>." + jjj[0].classes.join('.') + "</span>"; 
             } 
               if(jjj[0].classes.length > 0) {
                 str +=  "(<span class='pr' tabindex='-1'>" + jjj[0].props + "</span>)"; 
-            } 
-                
+            }  
             if(jjj[0].text.length > 0) {
                 str +=  " " + jjj[0].text; 
             }
             return str; 
         }
         else {
-            return 'conversion failed:' + str; 
+            return 'conversion failed:' + org; 
         }
     }
 }

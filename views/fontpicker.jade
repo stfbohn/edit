@@ -1,0 +1,23 @@
+doctype html
+html(lang='fr')
+  head
+    meta(charset='utf-8')
+    title Font picker
+    meta(name='description', content='bla bla')
+    meta(name='author', content='Steffen Bohn')
+    link(rel='stylesheet', type='text/css', href='/stylesheets/font.css')
+  body(spellcheck=false)
+    #menu
+      button options
+      button about
+      button header &#x2713;
+      button text &#x2713;
+      button all &#x2715;
+    include fonttext
+    div#container
+      +text('fff')
+      +text('fff')
+      +text('fff')
+    script(src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js")
+    script(src="/javascripts/font.js")          
+    

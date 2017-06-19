@@ -116,28 +116,6 @@ div.blink {
     width: 35px;
     text-align: center; }
 
-.tabcontainer {
-  position: absolute;
-  right: 0;
-  left: 0;
-  /*border-bottom: 2px solid white;*/
-  bottom: 0;
-  padding-left: 120px; }
-
-.tabheader {
-  display: inline-block;
-  background-color: gray;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
-  color: black;
-  padding: 5px 10px 5px 10px;
-  width: 80px;
-  text-align: center;
-  margin-right: 5px; }
-
-.tabselect {
-  background-color: white; }
-
 #left, #right {
   position: fixed;
   top: 50px;
@@ -154,23 +132,15 @@ div.blink {
   width: 100px;
   background-color: #dbdbdb; }
 
-#whitetop {
-  position: fixed;
-  left: 50px;
-  right: 100px;
-  top: 50px;
-  height: 15px;
-  background-color: white; }
-
 #base {
   /*font-family: "Bookman Old Style";*/ }
   #base #menubase {
     position: fixed;
-    top: 65px;
+    top: 50px;
     left: 100px;
     right: 100px;
     height: 50px;
-    background-color: darkblue;
+    background-color: #7c002d;
     color: black;
     display: flex;
     flex-direction: row;
@@ -351,7 +321,10 @@ h2 {
   /*background-color: red;*/
   width: 10px;
   height: 16px;
-  text-align: center; }
+  text-align: center;
+  opacity: 0.2; }
+  .collapse:hover {
+    opacity: 1; }
 
 .line.full {
   min-height: 16px; }

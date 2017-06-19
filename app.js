@@ -11,6 +11,24 @@ var users = require('./routes/users');
 
 var app = express();
 
+// var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+// let httpRequest = new XMLHttpRequest();
+
+// httpRequest.onreadystatechange = function(){
+//     if (httpRequest.readyState === XMLHttpRequest.DONE) {
+//       if (httpRequest.status === 200) {
+//         console.log(httpRequest.responseText);
+//       } else {
+//         console.log("bad one " + httpRequest.status); 
+//       } 
+//     } else {
+//       console.log("Not ready yet"); 
+//     }
+// };
+
+// httpRequest.open('GET', 'https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyBQLd206nVJp5NKjsr7an_SrilLNSpXN5Q', true);
+// httpRequest.send();
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -34,7 +52,12 @@ app.use('/users', users);
 app.get('/edit', function (req, res) {
   res.render('edit')
 });
-
+app.get('/form', function (req, res) {
+  res.render('form')
+});
+app.get('/font', function (req, res) {
+  res.render('fontpicker')
+});
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

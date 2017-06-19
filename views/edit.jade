@@ -7,7 +7,6 @@ html(lang='fr')
     meta(name='author', content='Steffen Bohn')
     link(rel='stylesheet', type='text/css', href='/stylesheets/edit.css')
   body(spellcheck=false)
-    
     #header
       .group
         .choice raw
@@ -18,14 +17,12 @@ html(lang='fr')
         .tabheader style
         .tabheader script
         .tabheader preview
-    #whitetop 
 
     #base(spellcheck='false')
       #menubase
         .updown
           button(onclick='focusMove(-1)' tabindex='-1') &#9650;
           button(onclick='focusMove(1)' tabindex='-1') &#9660;
-        //.buttons
         button(onclick="insertLine('text')" tabindex='-1') +text
         button(onclick="insertLine('div')" tabindex='-1') +node
         button(onclick='removeElement(null)' tabindex='-1') delete 

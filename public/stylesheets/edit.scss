@@ -130,28 +130,6 @@ $width-right:100px;
     }
 }
 
-.tabcontainer {
-    position: absolute;
-    right:  0;
-    left:   0; 
-    /*border-bottom: 2px solid white;*/
-    bottom:   0;
-    padding-left: $width-left + 20px;
-}
-.tabheader {
-    display: inline-block;
-    background-color: gray;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-    color:black;
-    padding: 5px 10px 5px 10px;
-    width: 80px;
-    text-align: center;
-    margin-right: 5px;
-}
-.tabselect {
-    background-color: white;
-}
 
 
 #left, #right{
@@ -172,24 +150,16 @@ $width-right:100px;
     width:$width-left;
     background-color: #dbdbdb;
 }
-#whitetop
-{
-    position: fixed;
-    left:50px;
-    right:100px;
-    top:50px;
-    height: 15px;
-    background-color: white;
-}
+
 $height-basemenu: 50px;
 #base{
     #menubase {
         position:fixed;
-        top:65px;
+        top:50px;
         left: $width-left;
         right: $width-right;
         height: $height-basemenu;
-        background-color: darkblue;
+        background-color: #7c002d;
         color: black;
         
         display: flex; 
@@ -326,7 +296,10 @@ $width-collapse: 10px;
     width:$width-collapse;
     height: $height-line;
     text-align: center;
+    opacity: 0.2; 
+    &:hover{ opacity: 1;}
 }
+
 .line.full {
     min-height: $height-line;
     &:focus
@@ -335,12 +308,12 @@ $width-collapse: 10px;
         margin-bottom: $height-halfline;*/
         background-color: $color-outline;
     }
-
     .ta { color:$color-tag; }
     .id { color: $color-id; /*font-weight: bold; */ }
     .cl { color: $color-class }
     .pr { color: #7a0065; }
 }
+
 .line.empty {
     margin-left: $width-collapse;
     height: 0; 

@@ -1,0 +1,32 @@
+mixin row(id,name,secu,vac,mal,brut,net,employer)
+  div.row
+    div.id
+      a(href="/") #{id}
+    div.name #{name}
+    div.secu #{secu}
+    div.vac #{vac}
+    div.mal #{mal} 
+    div.brut #{brut}
+    div.net #{net}
+    div.employer #{employer}
+         
+doctype html
+html(lang='fr')
+  head
+    meta(charset='utf-8')
+    title Edit
+    meta(name='description', content='bla bla')
+    meta(name='author', content='Steffen Bohn')
+    //link(rel='stylesheet', type='text/css', href='/stylesheets/edit.css')
+  body(spellcheck=false)
+
+  div#header
+  h1 Salaires du mois avril 2017
+
+  div#main
+    +row('sbohn','Bohn, Steffen',123,2,0,3000,2100,3400)
+    +row('sbohn','Bohn, Steffen',123,2,0,3000,2100,3400)
+    
+   
+
+   
