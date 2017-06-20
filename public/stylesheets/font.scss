@@ -37,9 +37,12 @@ div {
     -webkit-box-sizing: border-box;
 }
 
-$hhh: 400px;
+
+
+
+$hhh: 600px;
 $width: 350px;
-$marg: 10px; 
+$marg: 50px; 
 $dwidth: 2*($width+$marg); 
 #container {
     display: flex; /* or inline-flex */
@@ -47,7 +50,7 @@ $dwidth: 2*($width+$marg);
     /*background-color: red;*/
     margin: auto;
     
-    h1,h2,p { text-align: left; }
+    h1,h2,h3,p { text-align: left; }
 
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
@@ -64,56 +67,68 @@ $dwidth: 2*($width+$marg);
         background-color: white;
         color:#3d3d3d; 
         overflow: hidden;
-        //border: white solid 1px; 
-
-        .arrowbox,.fontdiv {
-            height: $hhh; 
-           
-        }
-        .arrowbox {
-            position: static;
-            margin-top: -$hhh;
-            text-align: center;
-            justify-content: center;
-            align-items: center;
-            display:none; 
-            opacity: 0.5;
-            p {
-                padding: 20px; 
-                font-size:60px;
-                background-color: gray;
-                color: white;
+        .fontinfo {
+            height: 130px; 
+            color: blue; 
+            opacity: 0; 
+            display: flex;
+            align-items: stretch; 
+            justify-content: space-between;
+            .fi {
+                //border: 0.5px solid blue;
+                width: 0.48*$width; 
             }
-        }
-        &:hover 
-        {
-            .arrowbox {
-                display: flex;
+            button {
+                background-color: white; 
+                color: blue; 
+                border: solid 1px blue;  
+                border-radius: 3px; 
+                height:25px; 
+                width: 25px;
+                margin-left: 5px;  
             }
-            //border: solid 1px #8e8e8e; 
+            button:hover{
+                 background-color: blue; 
+                color: white; 
+            }
+            button:active
+            {
+                outline: noe; 
+            }
+            margin-bottom: 20px;
         }
         .fontdiv { 
             padding: 5px;
-            /*background-color:red; */
-            -webkit-transition:  margin-top 0.3s ease-out; /* Safari */
-            transition: margin-top 0.3s ease-out;
+            .ppp {
+                display: flex; 
+                align-items: center; 
+                .white { opacity: 0; }
+                .pl {
+                    circle {
+                        opacity: 0;
+                        stroke:blue;
+                        stroke-width:1;
+                        fill:white; 
+                        //fill-opacity:0.4; 
+                    }
+                    .fixed circle {
+                        fill:blue;
+                    }
+                }
+                //.bname{ font-weight: bold; }
+            }
+        }
+        
+        &:hover{
+            .fontinfo { opacity: 1; }
+            .fontdiv .ppp {
+                .hname{ color:blue; }
+                .bname{ color:blue; }
+                .pl circle { opacity: 1; }
+            }
         }
         .hidden {
             display: none; 
-        }
-        .blabla
-        {
-            width: 100%; 
-            height: 100%;
-            background-color: gray; 
-            text-align: center; 
-            padding: 15px;
-            button {
-                margin: 50px;
-            }
-        }
-        .fontdiv.clicked { 
-            margin-top: 500px;
         }
   }
 }
@@ -144,54 +159,7 @@ $dwidth: 2*($width+$marg);
         }
         &.what { background-color:  gray; }
         &.what.sel { background-color:  white; color:gray; }
-        
     }
-}
-
-
-.fontinfo {
-        //display: flex;
-        //justify-content: left; 
-        padding: 5px; 
-        margin: 10px; 
-        //background-color: red;
-        .fi {
-            height:50px;
-            width: 100%;
-            display: flex;
-            align-items:  center; 
-            flex-direction: column;
-            color: gray;
-            &>div{
-                display: flex;
-                flex-direction:row;
-                align-items:  center;    
-            }
-        }
-        
-    .fisymbols {
-        margin-top: 15px; 
-        display: flex; 
-        justify-content: center; 
-        opacity: 0; 
-        button {
-            background-color: gray; 
-            color: black; 
-            border-radius: 3px;
-            border: none;
-            padding: 8px;
-            margin: 4px; 
-        }
-    }
-}
-.box:hover > .fontinfo
-{
-    .fi {
-        color: black;
-    }
-   .fisymbols {
-        opacity: 1; 
-   }
 }
 
 

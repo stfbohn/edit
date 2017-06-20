@@ -5,8 +5,6 @@ var xmlhttp = new XMLHttpRequest();
 var url = "https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyBQLd206nVJp5NKjsr7an_SrilLNSpXN5Q";
 var items = []; 
 var item_index = 0; 
-let f1 = document.getElementById('f1'); 
-let f2 = document.getElementById('f2'); 
 
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
@@ -30,8 +28,8 @@ xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
         var myArr = JSON.parse(this.responseText);
         items = shuffle(myArr.items);
-        clickdiv(f1);
-        clickdiv(f2);
+        //clickdiv(f1);
+        //clickdiv(f2);
     }
 };
 xmlhttp.open("GET", url, true);
@@ -45,51 +43,58 @@ var loadFont = function(font) {
   });
 };
 
-f1.addEventListener("click", function() {
-        clickdiv(f2);
-    }); 
-f2.addEventListener("click", function() {
-        clickdiv(f1);
-    }); 
+let ppps = document.getElementsByClassName('pr'); 
+for(let i=0; i< ppps.length;i++) { 
+    let parent = ppps[i].parentElement.parentElement.parentElement; 
+    ppps[i].addEventListener("click", function() {
+        console.log(this.parentElement.classList); 
+        clickdiv(parent);
+    });     
+}
+let fixs = document.getElementsByClassName('fix'); 
+for(let i=0; i< fixs.length;i++) {
+    //console.log(ppps[i].classList); 
+    let parent = fixs[i].parentElement.parentElement.parentElement; 
+    fixs[i].addEventListener("click", function() {
+        fixit(fixs[i]);
+    });     
+}
 
-let wbh = document.getElementById('wbh'); 
-let wb = document.getElementById('wb'); 
-let wh = document.getElementById('wh'); 
+function getParent(elem, cl) {
+    let par = elem; 
+    while(!par.classList.contains(cl)) {
+        par = par.parentElement; 
+    }
+    return par; 
+}
 
 let change_header = true;
 let change_body = true; 
 
-function what(x)
+function fixit(fix)
 {
-    if(x=='bodyheader') {
-
-        wbh.classList.add('sel'); 
-        wb.classList.remove('sel'); 
-        wh.classList.remove('sel'); 
-        change_header = true;
-        change_body = true; 
-
+    fix.classList.toggle('fixed'); 
+    if(fix.classList.contains('header')){
+        if(fix.classList.contains('fixed')){
+            change_header = false; 
+        }
+        else {
+            change_header = true; 
+        }
+        let par = getParent(fix,'fontcont');
+        console.log('header' + par.classList);
     }
-    else if(x=='body') {
-        wbh.classList.remove('sel'); 
-        wb.classList.add('sel'); 
-        wh.classList.remove('sel'); 
-        change_header = false;
-        change_body = true; 
+    else if(fix.classList.contains('body')){
+        if(fix.classList.contains('fixed')){
+            change_body = false; 
+        }
+        else {
+            change_body = true; 
+        }
+        let par = getParent(fix,'fontcont');
+        console.log('body' + par.classList); 
     }
-    else if(x == 'header') {
-        
-        wbh.classList.remove('sel'); 
-        wb.classList.remove('sel'); 
-        wh.classList.add('sel');
-        change_header = true;
-        change_body = false;  
-    }
-}
-
-function colors(openOrClose) {
-    f2.getElementsByClassName('fontdiv')[0].classList.toggle('hidden'); 
-    f2.getElementsByClassName('blabla')[0].classList.toggle('hidden'); 
+    console.log('fix',fix);
 }
 
 function clickdiv(parent) {
@@ -108,7 +113,7 @@ function clickdiv(parent) {
         }
         let hname = d.parentElement.parentElement.getElementsByClassName('hname')[0]; 
         hname.innerText = font;  
-        hname.style.fontFamily = font;
+        //hname.style.fontFamily = font;
     }
     if(change_body) {
         console.log('body');
@@ -118,6 +123,6 @@ function clickdiv(parent) {
         }
         let bname = d.parentElement.parentElement.getElementsByClassName('bname')[0]; 
         bname.innerText = font;  
-        bname.style.fontFamily = font;
+        //bname.style.fontFamily = font;
     }
 }

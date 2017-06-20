@@ -1,38 +1,53 @@
-mixin emptystar()
-  svg#Layer_1(enable-background='new 0 0 50 50', height='50px', version='1.1', viewbox='0 0 50 50', width='50px', xml:space='preserve', xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink')
-    rect(fill='none', height='50', width='50')
-    polygon(fill='none', points='25,3.553 30.695,18.321 46.5,19.173   34.214,29.152 38.287,44.447 25,35.848 11.712,44.447 15.786,29.152 3.5,19.173 19.305,18.321 ', stroke='#000000', stroke-miterlimit='10', stroke-width='2')
+mixin line()
+  .ppp
+    .pl
+      svg.white(width="30" height="20")
+        //circle(cx="10" cy="10" r="6" style="stroke:black;stroke-width:1;fill:yellow;fill-opacity:0.4" )
+        circle(cx="10" cy="10" r="6" )
+    .pr
+      div
+        block
 
-mixin fullstar()
-  svg(height='21px', version='1.1', viewbox='0 0 20 21', width='20px', xmlns='http://www.w3.org/2000/svg', xmlns:sketch='http://www.bohemiancoding.com/sketch/ns', xmlns:xlink='http://www.w3.org/1999/xlink')
-    title
-      desc
-        defs
-          g#Page-1(fill='none', fill-rule='evenodd', stroke='none', stroke-width='1')
-            g#Core(fill='#000000', transform='translate(-296.000000, -422.000000)')
-              g#star(transform='translate(296.000000, 422.500000)')
-                path#Shape(d='M10,15.273 L16.18,19 L14.545,11.971 L20,7.244 L12.809,6.627 L10,0 L7.191,6.627 L0,7.244 L5.455,11.971 L3.82,19 L10,15.273 Z')
+mixin cline(checkname)
+  .ppp(class="#{checkname}")
+    .pl
+      svg.fix(width="30" height="20" class="#{checkname}")
+        circle(cx="10" cy="10" r="6" )
+        //circle(cx="10" cy="10" r="6" style="stroke:black;stroke-width:1;fill:yellow;fill-opacity:0.4" )
+    .pr
+      div
+        block
 
 mixin text(font)
   .box
     .fontcont(id='#{font}')
+      .fontinfo
+        .fi
+          h3 header:
+          p.hname name
+          p Google Font
+          p
+            button &#x2606;
+            button &#x2630;
+            button d;
+
+        .fi 
+          h3 body:
+          p.bname name
+          p Google Font
       .fontdiv
-        h1.hhh Toggle Font
-        h2.hhh Click and toggle
-        p.bbb Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. 
-        h3.hhh Have fun and lean latin
-        p.bbb Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. 
-      .blabla.hidden 
-        div Here should be a color picker
-        button(onclick='colors(false)')  close
-    .fontinfo
-      .fi
-        div
-          input(type="checkbox" name="headercheck" onclick="calc(this);")
-          h2.hname Font Name 
-        div
-          input(type="checkbox" name="bodycheck" onclick="calc(this);") 
-          p.bname Font Name
-      .fisymbols
-          button bookmark
-          button download
+        +line()  
+            h1.hhh Toggle Font
+        +cline('header')
+            h2.hhh.hname Change Headers
+        +cline('body')
+            p  
+              span.bbb Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.  Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.&nbsp;
+              span.bbb.bname Change body 
+              span.bbb &nbsp;Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium, ultricies nec, pellentesque eu, pretium quis, sem. 
+        +cline('all') 
+            h3.hhh Change everything
+        +line()
+            p  
+              span.bbb Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. 
+        
