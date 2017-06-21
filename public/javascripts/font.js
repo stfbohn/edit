@@ -47,8 +47,8 @@ let ppps = document.getElementsByClassName('pr');
 for(let i=0; i< ppps.length;i++) { 
     let parent = ppps[i].parentElement.parentElement.parentElement; 
     ppps[i].addEventListener("click", function() {
-        console.log(this.parentElement.classList); 
-        clickdiv(parent);
+        console.log(this.parentElement.classList[1]); 
+        clickdiv(parent, this.parentElement.classList);
     });     
 }
 let fixs = document.getElementsByClassName('fix'); 
@@ -67,9 +67,6 @@ function getParent(elem, cl) {
     }
     return par; 
 }
-
-let change_header = true;
-let change_body = true; 
 
 function fixit(fix)
 {
@@ -97,7 +94,7 @@ function fixit(fix)
     console.log('fix',fix);
 }
 
-function clickdiv(parent) {
+function clickdiv(parent, what) {
     let d = parent.getElementsByClassName('fontdiv')[0];
     item_index++;
     if(item_index >= items.length) {
@@ -105,8 +102,8 @@ function clickdiv(parent) {
     } 
     var font = items[item_index].family;
     loadFont(font);
-    if(change_header) {
-        console.log('header');
+    if(what.contains('header')) {
+        //console.log('header');
         let hhh = d.getElementsByClassName('hhh'); 
         for(let i=0;i<hhh.length;i++) {
             hhh[i].style.fontFamily = font; 
@@ -115,7 +112,7 @@ function clickdiv(parent) {
         hname.innerText = font;  
         //hname.style.fontFamily = font;
     }
-    if(change_body) {
+    if(what.contains('body')) {
         console.log('body');
         let bbb = d.getElementsByClassName('bbb'); 
         for(let i=0;i<bbb.length;i++) {

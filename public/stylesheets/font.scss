@@ -124,7 +124,7 @@ $dwidth: 2*($width+$marg);
             .fontdiv .ppp {
                 .hname{ color:blue; }
                 .bname{ color:blue; }
-                .pl circle { opacity: 1; }
+                .pl circle { /*opacity: 1; */}
             }
         }
         .hidden {

@@ -30,7 +30,6 @@ mixin text(font)
             button &#x2606;
             button &#x2630;
             button d;
-
         .fi 
           h3 body:
           p.bname name
@@ -38,15 +37,15 @@ mixin text(font)
       .fontdiv
         +line()  
             h1.hhh Toggle Font
-        +cline('header')
-            h2.hhh.hname Change Headers
+        +cline('header body')
+            h2.hhh.hname Change Everything
         +cline('body')
             p  
               span.bbb Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.  Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.&nbsp;
               span.bbb.bname Change body 
               span.bbb &nbsp;Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium, ultricies nec, pellentesque eu, pretium quis, sem. 
-        +cline('all') 
-            h3.hhh Change everything
+        +cline('header') 
+            h3.hhh.hname Change Headers
         +line()
             p  
               span.bbb Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. 
