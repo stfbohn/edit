@@ -94,6 +94,40 @@ function fixit(fix)
     console.log('fix',fix);
 }
 
+function next_font(which) {
+    item_index++;
+    if(item_index >= items.length) {
+        item_index = 0; 
+    } 
+    var font = items[item_index].family;
+    loadFont(font);
+    return font; 
+}
+
+let sample = document.getElementById('sample'); 
+
+function change(level) {
+    let font = next_font(level); 
+    let children = sample.childNodes;
+    if('header' == level) {
+        for(let i=0;i<children.length;i++) {
+            if(children[i].tagName != 'P')
+                children[i].style.fontFamily = font; 
+        }
+    }
+    else if('body' == level) {
+        for(let i=0;i<children.length;i++) {
+            if(children[i].tagName == 'P')
+                children[i].style.fontFamily = font; 
+        }
+    }
+    else {
+       for(let i=0;i<children.length;i++) {
+            children[i].style.fontFamily = font; 
+        } 
+    }
+}
+
 function clickdiv(parent, what) {
     let d = parent.getElementsByClassName('fontdiv')[0];
     item_index++;

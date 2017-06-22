@@ -7,21 +7,23 @@ html(lang='fr')
     meta(name='author', content='Steffen Bohn')
     link(rel='stylesheet', type='text/css', href='/stylesheets/font.css')
   body(spellcheck=false)
-    //#menu
-      button.options options
-      div
-        button#wbh.what.sel(onclick='what("bodyheader")') body and header
-        button#wb.what(onclick='what("body")') body
-        button#wh.what(onclick='what("header")') header 
-      button.colors(onclick='colors(true)')
-      button.about about
-      //button.colors colors &#x2713;
-      //button.about about &#x2715;
     include fonttext
-    div#container
-      +text('f1')
-      +text('f2')
-      //+text('fff')
+    #main
+      #top
+      #middle
+        #left
+          +fontbox('header','Header')
+          +fontbox('body','Body')
+          button.option options
+          button.download download
+          button.bookm bookmark
+        #sample
+          +sampletext()
+        #right
+          +little()
+          +little()
+          +little()
+      #bottom
     script(src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js")
     script(src="/javascripts/font.js")          
     

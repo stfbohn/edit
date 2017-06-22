@@ -1,52 +1,27 @@
-mixin line()
-  .ppp
-    .pl
-      svg.white(width="30" height="20")
-        //circle(cx="10" cy="10" r="6" style="stroke:black;stroke-width:1;fill:yellow;fill-opacity:0.4" )
-        circle(cx="10" cy="10" r="6" )
-    .pr
-      div
-        block
+mixin sampletext()
+  h1 Header
+  h2 Toggle Font
+  p Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
+  h2 Toggle Font
+  p Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
 
-mixin cline(checkname)
-  .ppp(class="#{checkname}")
-    .pl
-      svg.fix(width="30" height="20" class="#{checkname}")
-        circle(cx="10" cy="10" r="6" )
-        //circle(cx="10" cy="10" r="6" style="stroke:black;stroke-width:1;fill:yellow;fill-opacity:0.4" )
-    .pr
-      div
-        block
+mixin slider(what,start,end)
+  .slider
+    input(type='checkbox')
+    .sliderlable #{start}
+    input(type="range" id="myRange" value="90")
+    .sliderlable #{end}
 
-mixin text(font)
-  .box
-    .fontcont(id='#{font}')
-      .fontinfo
-        .fi
-          h3 header:
-          p.hname name
-          p Google Font
-          p
-            button &#x2606;
-            button &#x2630;
-            button d;
-        .fi 
-          h3 body:
-          p.bname name
-          p Google Font
-      .fontdiv
-        +line()  
-            h1.hhh Toggle Font
-        +cline('header body')
-            h2.hhh.hname Change Everything
-        +cline('body')
-            p  
-              span.bbb Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.  Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.&nbsp;
-              span.bbb.bname Change body 
-              span.bbb &nbsp;Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium, ultricies nec, pellentesque eu, pretium quis, sem. 
-        +cline('header') 
-            h3.hhh.hname Change Headers
-        +line()
-            p  
-              span.bbb Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. 
-        
+mixin fontbox(what, label)
+  button.change(onClick="change('#{what}')") Change #{label}    
+  //.fontbox(class='#{what}')
+    .fontname font name
+    +slider('weight','light','bold')
+    +slider('type','simple','fancy')
+    +slider('width','narrow','large')
+
+mixin little()
+  .bookmark
+    .close  &#x2715;
+    .small
+      +sampletext()

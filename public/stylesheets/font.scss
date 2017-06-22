@@ -1,14 +1,4 @@
-/*$color-lightgray: #636363;*/
-@font-face {
-    font-family: DejaVu;
-    src: url(/fonts/DejaVu/DejaVuSansMono.ttf) format("truetype");
-}
-@font-face {
-    font-family: Lekton;
-    src: url(/fonts/Lekton-/Lekton-Regular.ttf) format("truetype");
-}
-
-div,p,h1,h2,h3,button{
+div,p,h1,h2,h3 {
     margin: 0; 
     padding: 0; 
 }
@@ -21,14 +11,8 @@ $color-outline: #cecece;
 html{
     //background-color:#e5e5e5;
     //background-color:#262626;
-    background-color:white;
-    
+    background-color:white;    
     font-family: Arial, Helvetica, sans-serif;
-}
-
-h1,p
-{
-    text-align: center; 
 }
 
 div {
@@ -38,130 +22,214 @@ div {
 }
 
 
-
-
-$hhh: 600px;
-$width: 350px;
-$marg: 50px; 
-$dwidth: 2*($width+$marg); 
-#container {
-    display: flex; /* or inline-flex */
-    justify-content: center; 
-    /*background-color: red;*/
-    margin: auto;
-    
-    h1,h2,h3,p { text-align: left; }
-
-    -webkit-user-select: none;  /* Chrome all / Safari all */
-    -moz-user-select: none;     /* Firefox all */
-    -ms-user-select: none;      /* IE 10+ */
-    user-select: none;          /* Likely future */      
-    cursor: pointer; 
-    
-    .fontcont {
-        width: $width;
-        height: $hhh; 
-        margin: $marg; 
-        display: static;
-        font-size:14px;
-        background-color: white;
-        color:#3d3d3d; 
-        overflow: hidden;
-        .fontinfo {
-            height: 130px; 
-            color: blue; 
-            opacity: 0; 
-            display: flex;
-            align-items: stretch; 
-            justify-content: space-between;
-            .fi {
-                //border: 0.5px solid blue;
-                width: 0.48*$width; 
-            }
-            button {
-                background-color: white; 
-                color: blue; 
-                border: solid 1px blue;  
-                border-radius: 3px; 
-                height:25px; 
-                width: 25px;
-                margin-left: 5px;  
-            }
-            button:hover{
-                 background-color: blue; 
-                color: white; 
-            }
-            button:active
-            {
-                outline: noe; 
-            }
-            margin-bottom: 20px;
-        }
-        .fontdiv { 
-            padding: 5px;
-            .ppp {
-                display: flex; 
-                align-items: center; 
-                .white { opacity: 0; }
-                .pl {
-                    circle {
-                        opacity: 0;
-                        stroke:blue;
-                        stroke-width:1;
-                        fill:white; 
-                        //fill-opacity:0.4; 
-                    }
-                    .fixed circle {
-                        fill:blue;
-                    }
-                }
-                //.bname{ font-weight: bold; }
-            }
-        }
-        
-        &:hover{
-            .fontinfo { opacity: 1; }
-            .fontdiv .ppp {
-                .hname{ color:blue; }
-                .bname{ color:blue; }
-                .pl circle { /*opacity: 1; */}
-            }
-        }
-        .hidden {
-            display: none; 
-        }
-  }
+#main {
+    position: fixed; 
+    left:0;
+    right: 0;
+    bottom: 0;
+    top:0; 
+    //background-color: red; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: stretch; 
+}
+#top{
+    height: 15%; 
+    //background-color: green; 
+}
+ #bottom{
+     height: 10%; 
+     //background-color: green; 
+ }
+ 
+$padd:60px;  
+#middle {
+    height: 75%; 
+    //background-color: blue; 
+    display: flex; 
+    align-items: stretch; 
+    justify-content:center; 
 }
 
-#menu
-{
-    display: flex; /* or inline-flex */
-    justify-content:  space-between ;
-    /*background-color: red;*/
-    width: $dwidth; 
-    margin: auto;
-    margin-top: 20px;
-    margin-bottom: 50px;
-    button {
-        border: none;
-        padding: 10px; 
-        margin: 0;
-        background-color: gray;
-        //border: solid 1px black;  
-        color: white;
-        min-width: 90px;
-        &.colors { 
-            background: red; 
-            background: -webkit-linear-gradient(left, red, orange, yellow, green, blue, indigo, violet);
-            background: -moz-linear-gradient(left, red, orange, yellow, green, blue, indigo, violet);
-            background: -o-linear-gradient(left, red, orange, yellow, green, blue, indigo, violet);
-            background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-        }
-        &.what { background-color:  gray; }
-        &.what.sel { background-color:  white; color:gray; }
+.bookmark {
+    border: 0.5px solid white;
+    margin: 10px;
+    font-size:0.5em;  
+    display: flex; 
+    flex-direction: column; 
+    justify-content: flex-end; 
+    padding: 2px;
+    padding-bottom: 15px;
+    .close{
+        text-align: right; 
+        
+        opacity: 0; 
+    }
+    .small{
+        height : 100px; 
+        padding: 5px; 
+        
+        //background-color: gray;
+        overflow: hidden; 
+    }
+    &:hover {
+        border: 0.5px solid black;
+        .close{ opacity: 1; }
     }
 }
+#left, #right {            
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    
+    
+    //background: yellow;
+}
+#right {
+    border-left: solid 0.5px black;
+    width: 200px;
+    padding: 20px;
+    align-items: center;
+}
+#left {
+    width: 300px;
+    align-items: left;
+}
+#sample {
+    display: static; 
+    overflow: hidden; 
+    width: 500px;
+    background-color: white;
+    text-align: left; 
+    padding: 0; 
+    padding-right: $padd; 
+    padding-left: $padd; 
+    
+}
+    button {
+        margin: 0;
+        margin-top: 10px; 
+        padding: 7px; 
+        background-color:#636363;
+        color: white;  
+        border-radius: 0; 
+        border: 1px solid #636363;
+        width: 150px;
+        &.change { 
+            background-color: black;
+        }
+        &.option { 
+            background-color: white;
+            color: black; 
+         }
+        &.download, &.bookm {
+            color: red;
+        }
+    
+    }
+    
+
+.fontbox
+{
+    //border: solid 0.5px black; 
+    padding: 10px;
+    margin-bottom: 20px;
 
 
+.slider {
+    display: flex;
+    align-items: center;
+    
+    .sliderlable { 
+        width: 50px;
+        font-size: 0.7em; 
+    }  
+    //input {}
+}
+}      
 
+$slider-width: 80px;           
+input[type=range] {
+    /*removes default webkit styles*/
+    -webkit-appearance: none;
+    /*fix for FF unable to apply focus style bug */
+    border: 1px solid white;
+    /*required for proper track sizing in FF*/
+    width: $slider-width;
+}
+input[type=range]::-webkit-slider-runnable-track {
+    width: $slider-width;
+    height: 5px;
+    background: #ddd;
+    border: none;
+    border-radius: 3px;
+}
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: goldenrod;
+    margin-top: -4px;
+}
+input[type=range]:focus {
+    outline: none;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #ccc;
+}
 
+input[type=range]::-moz-range-track {
+    width: $slider-width;
+    height: 5px;
+    background: #ddd;
+    border: none;
+    border-radius: 3px;
+}
+input[type=range]::-moz-range-thumb {
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: goldenrod;
+}
+
+/*hide the outline behind the border*/
+input[type=range]:-moz-focusring{
+    outline: 1px solid white;
+    outline-offset: -1px;
+}
+
+input[type=range]::-ms-track {
+    width: $slider-width;
+    height: 5px;
+    /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
+    background: transparent;
+    /*leave room for the larger thumb to overflow with a transparent border */
+    border-color: transparent;
+    border-width: 6px 0;
+    /*remove default tick marks*/
+    color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+    background: #777;
+    border-radius: 10px;
+}
+input[type=range]::-ms-fill-upper {
+    background: #ddd;
+    border-radius: 10px;
+}
+input[type=range]::-ms-thumb {
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: goldenrod;
+}
+input[type=range]:focus::-ms-fill-lower {
+    background: #888;
+}
+input[type=range]:focus::-ms-fill-upper {
+    background: #ccc;
+}
