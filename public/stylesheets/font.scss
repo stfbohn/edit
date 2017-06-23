@@ -3,16 +3,10 @@ div,p,h1,h2,h3 {
     padding: 0; 
 }
 
-/*$color-lightgray: #636363;*/
-$half-font-size: 6px;
-$font-size: 2*$half-font-size; 
-$color-outline: #cecece;
-
-html{
-    //background-color:#e5e5e5;
-    //background-color:#262626;
+html {
     background-color:white;    
     font-family: Arial, Helvetica, sans-serif;
+    font-size : 14px;
 }
 
 div {
@@ -21,35 +15,159 @@ div {
     -webkit-box-sizing: border-box;
 }
 
+    //$color_button: #636363;
+    $color_button:  #76608c;
+/*
+button {
+    margin: 0;
+    margin-top: 10px; 
+    padding: 7px; 
+    background-color:$color_button;
+    color: white;  
+    border-radius: 0; 
+    border: 1px solid $color_button;
+    width: 100px;
+    &.selected, &:hover { 
+        background-color: white;
+        color: $color_button;
+    }
+    &:active, &:focus {
+        outline: none; 
+    }
+}
+*/
+button {
+    margin: 0;
+    margin-top: 10px; 
+    padding: 7px; 
+    color: $color_button;
+    border: none;
+    background-color: white;
+    &:hover { 
+        color: black;
+    }
+    
+    &.selected {
+        text-decoration: underline;
+    }
+    &:active, &:focus {
+        outline: none; 
+    }
+    
+}
 
-#main {
+
+
+$width_box : 400px;
+$width_container: 2*$width_box;  
+$height-top: 10%;
+$height-bottom: 15%;
+
+
+
+#main, #start {
     position: fixed; 
     left:0;
     right: 0;
     bottom: 0;
     top:0; 
-    //background-color: red; 
     display: flex; 
     flex-direction: column; 
-    align-items: stretch; 
+    align-items: center; 
+    justify-content: space-between;
+    min-width: $width_container + 20px; 
 }
-#top{
-    height: 15%; 
-    //background-color: green; 
+#start {
+    justify-content: center;
+    background: rgba(255, 255, 255, .8);
 }
- #bottom{
-     height: 10%; 
-     //background-color: green; 
- }
- 
-$padd:60px;  
-#middle {
-    height: 75%; 
-    //background-color: blue; 
+#start>div{
     display: flex; 
-    align-items: stretch; 
-    justify-content:center; 
+    flex-direction: column;
+    align-items: left; 
+    justify-content: space-between;
+    height:40%; 
+    width: $width_box; 
+    background-color:white;
+    padding:50px;
+    border: 1px solid $color_button;
 }
+
+#top, #bottom, #container 
+{
+    flex-shrink: 0;
+    width:$width_container;
+}
+
+
+#top{
+    height: $height-top; 
+    display: flex; 
+    justify-content:  space-between;
+    align-items: center
+}
+#bottom{
+    height: $height-bottom; 
+    display: flex; 
+    justify-content:  center;
+    align-items: flex-end;  
+    color: $color_button; 
+    a {
+        outline: none; 
+        padding: 25px 5px 10px 25px;
+        &:hover { color: black; }
+    }
+}
+
+#container {
+  height: 100% - $height-bottom - $height-top;
+  display:flex;
+  justify-content: flex-start;
+  overflow: hidden;
+
+  #overlay, .box {
+    overflow: hidden;
+    flex-shrink: 0;
+    margin:0; 
+    width:$width_box;
+    
+    display:flex;
+    align-items: stretch;
+    -webkit-transition: width 0.25s; 
+    transition: width 0.25s;
+    transition-timing-function: ease-out;
+  }
+  #download {  
+      padding: 50px;
+      border: 0.5px solid black; 
+      width: $width_box;
+  }
+  .bname, .hname{ display: none; }
+
+    .inner
+    {
+        user-select: none;
+        padding: 100px 50px 100px 50px;
+        overflow:hidden;
+        span.bold {
+            font-weight: bold; 
+        }
+        span.italic {
+            font-style: italic;
+        }
+    }
+}
+
+#boxtemplate
+{
+  display: none;
+}
+
+
+/* ========================== */
+
+
+$padd:60px;
 
 .bookmark {
     border: 0.5px solid white;
@@ -62,7 +180,6 @@ $padd:60px;
     padding-bottom: 15px;
     .close{
         text-align: right; 
-        
         opacity: 0; 
     }
     .small{
@@ -77,58 +194,9 @@ $padd:60px;
         .close{ opacity: 1; }
     }
 }
-#left, #right {            
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-    
-    
-    //background: yellow;
-}
-#right {
-    border-left: solid 0.5px black;
-    width: 200px;
-    padding: 20px;
-    align-items: center;
-}
-#left {
-    width: 300px;
-    align-items: left;
-}
-#sample {
-    display: static; 
-    overflow: hidden; 
-    width: 500px;
-    background-color: white;
-    text-align: left; 
-    padding: 0; 
-    padding-right: $padd; 
-    padding-left: $padd; 
-    
-}
-    button {
-        margin: 0;
-        margin-top: 10px; 
-        padding: 7px; 
-        background-color:#636363;
-        color: white;  
-        border-radius: 0; 
-        border: 1px solid #636363;
-        width: 150px;
-        &.change { 
-            background-color: black;
-        }
-        &.option { 
-            background-color: white;
-            color: black; 
-         }
-        &.download, &.bookm {
-            color: red;
-        }
-    
-    }
-    
 
+
+    
 .fontbox
 {
     //border: solid 0.5px black; 

@@ -10,20 +10,53 @@ html(lang='fr')
     include fonttext
     #main
       #top
-      #middle
-        #left
-          +fontbox('header','Header')
-          +fontbox('body','Body')
-          button.option options
-          button.download download
-          button.bookm bookmark
-        #sample
-          +sampletext()
-        #right
+        .mode
+          button &#x2B60;
+          button &#x279D;
+          //button.mode.selected(onclick='toggleMode(this)') all
+          button.mode(onclick='toggleMode(this)') header
+          button.mode(onclick='toggleMode(this)') body  
+          button bookmark
+        div
+          button options
+          button bookmarks
+          button share
+          button(onclick='download(this)') download
+      #container
+        +box(0)
+        +box(1)
+        +box(2)
+        #overlay
+          #download
+            p
+              span family:
+              span xxx
+            p
+              span font:
+              span xxx
+            p
+              span licence:
+              span google
+            
+
+        //#right
           +little()
           +little()
           +little()
       #bottom
+        a legal
+        a contact
+        a &copy; Steffen
+    #start
+      div
+        p Click on the font you prefer. Toggle font will figure out what you want. 
+        p 
+          | And yes, we are using cookies (
+          a learn more
+          |).
+        button(onclick='hideStart()') OK
+    #boxtemplate
+      +box('-1')
     script(src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js")
     script(src="/javascripts/font.js")          
     

@@ -28,8 +28,10 @@ xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
         var myArr = JSON.parse(this.responseText);
         items = shuffle(myArr.items);
-        //clickdiv(f1);
-        //clickdiv(f2);
+        let boxes = document.getElementById('container').getElementsByClassName('box'); 
+        for(let i=0;i<boxes.length;i++) {
+            initBox(boxes[i]); 
+        }
     }
 };
 xmlhttp.open("GET", url, true);
@@ -43,55 +45,17 @@ var loadFont = function(font) {
   });
 };
 
-let ppps = document.getElementsByClassName('pr'); 
-for(let i=0; i< ppps.length;i++) { 
-    let parent = ppps[i].parentElement.parentElement.parentElement; 
-    ppps[i].addEventListener("click", function() {
-        console.log(this.parentElement.classList[1]); 
-        clickdiv(parent, this.parentElement.classList);
-    });     
-}
-let fixs = document.getElementsByClassName('fix'); 
-for(let i=0; i< fixs.length;i++) {
-    //console.log(ppps[i].classList); 
-    let parent = fixs[i].parentElement.parentElement.parentElement; 
-    fixs[i].addEventListener("click", function() {
-        fixit(fixs[i]);
-    });     
-}
 
-function getParent(elem, cl) {
-    let par = elem; 
-    while(!par.classList.contains(cl)) {
-        par = par.parentElement; 
-    }
-    return par; 
-}
+let boxtemp = document.getElementById('boxtemplate').getElementsByClassName('box')[0];
 
-function fixit(fix)
+function initBox(box)
 {
-    fix.classList.toggle('fixed'); 
-    if(fix.classList.contains('header')){
-        if(fix.classList.contains('fixed')){
-            change_header = false; 
-        }
-        else {
-            change_header = true; 
-        }
-        let par = getParent(fix,'fontcont');
-        console.log('header' + par.classList);
-    }
-    else if(fix.classList.contains('body')){
-        if(fix.classList.contains('fixed')){
-            change_body = false; 
-        }
-        else {
-            change_body = true; 
-        }
-        let par = getParent(fix,'fontcont');
-        console.log('body' + par.classList); 
-    }
-    console.log('fix',fix);
+    setBodyFont(box, next_font('body')); 
+    setHeaderFont(box, next_font('header')); 
+    
+    box.addEventListener("click", function() {
+        boxClick(box);
+    });     
 }
 
 function next_font(which) {
@@ -104,56 +68,149 @@ function next_font(which) {
     return font; 
 }
 
-let sample = document.getElementById('sample'); 
-
-function change(level) {
-    let font = next_font(level); 
-    let children = sample.childNodes;
-    if('header' == level) {
-        for(let i=0;i<children.length;i++) {
-            if(children[i].tagName != 'P')
-                children[i].style.fontFamily = font; 
-        }
-    }
-    else if('body' == level) {
-        for(let i=0;i<children.length;i++) {
-            if(children[i].tagName == 'P')
-                children[i].style.fontFamily = font; 
-        }
-    }
-    else {
-       for(let i=0;i<children.length;i++) {
+function setHeaderFont(target, font) {
+    target.getElementsByClassName('hname')[0].innerText = font;  
+    console.log('set header:' + font);
+    let children = target.getElementsByClassName('inner')[0].childNodes;
+    for(let i=0;i<children.length;i++) {
+        if(children[i].tagName != 'P') {
             children[i].style.fontFamily = font; 
-        } 
+        }
+    }
+}
+function setBodyFont(target, font) {
+    target.getElementsByClassName('bname')[0].innerText = font;  
+    console.log('set body:' + font); 
+    let children = target.getElementsByClassName('inner')[0].childNodes;
+    for(let i=0;i<children.length;i++) {
+        if(children[i].tagName == 'P') {
+            children[i].style.fontFamily = font; 
+        }
     }
 }
 
-function clickdiv(parent, what) {
-    let d = parent.getElementsByClassName('fontdiv')[0];
-    item_index++;
-    if(item_index >= items.length) {
-        item_index = 0; 
-    } 
-    var font = items[item_index].family;
-    loadFont(font);
-    if(what.contains('header')) {
-        //console.log('header');
-        let hhh = d.getElementsByClassName('hhh'); 
-        for(let i=0;i<hhh.length;i++) {
-            hhh[i].style.fontFamily = font; 
-        }
-        let hname = d.parentElement.parentElement.getElementsByClassName('hname')[0]; 
-        hname.innerText = font;  
-        //hname.style.fontFamily = font;
+let bodyOrHeader = 'all'; 
+
+function updateFont(target, header, body)
+{
+    console.log('doing ' + target.classList); 
+    //return;
+    if(bodyOrHeader == 'header') {
+        let font = next_font('header');
+        setHeaderFont(target,font); 
+        setBodyFont(target,body); 
     }
-    if(what.contains('body')) {
-        console.log('body');
-        let bbb = d.getElementsByClassName('bbb'); 
-        for(let i=0;i<bbb.length;i++) {
-            bbb[i].style.fontFamily = font; 
-        }
-        let bname = d.parentElement.parentElement.getElementsByClassName('bname')[0]; 
-        bname.innerText = font;  
-        //bname.style.fontFamily = font;
+    else if (bodyOrHeader == 'body'){
+        let font = next_font('body');
+        setHeaderFont(target,header); 
+        setBodyFont(target,font); 
     }
+    else /* all */ {
+        let font = next_font('all');
+        setHeaderFont(target,font); 
+        setBodyFont(target,font); 
+    }
+}
+
+let transition_speed = 250; 
+let overlay = document.getElementById('overlay')
+console.log(overlay);
+
+function boxClick(sender){ 
+    if(sender == null) {
+        sender = document.getElementById('container').getElementsByClassName('box')[0]; 
+    }
+
+    // is first or second? 
+    let boxes = sender.parentElement.getElementsByClassName('box'); 
+    
+    let fontBody = boxes[0].getElementsByClassName('bname')[0].innerText;  
+    let fontHeader = boxes[0].getElementsByClassName('hname')[0].innerText; 
+
+    console.log('ref fonts ' + fontHeader + ' ' + fontBody);
+    
+    if(boxes[0] == sender) {
+        boxes[1].color = 'white';
+        updateFont(boxes[1], fontHeader, fontBody); 
+        setTimeout(function(){ 
+            boxes[1].color = 'black';  
+        }, 250); 
+  } 
+  else if(boxes[1] == sender) {
+        let target = boxes[0];
+        let parent = target.parentElement;
+
+        let cln = boxtemp.cloneNode(true);
+        initBox(cln);
+        updateFont(boxes[2], fontHeader, fontBody); 
+        parent.insertBefore(cln,overlay);
+
+        // transition slow kill
+        target.style.width = 0;
+        boxes[2].color = 'white';
+        setTimeout(function(){ 
+            boxes[2].color = 'black'; 
+            target.parentNode.removeChild(target); 
+        }, 250); 
+  }
+  else {
+      console.error('not found'); 
+  }
+}
+
+
+
+let modeButtons = document.getElementsByClassName('mode'); 
+let buttons = document.getElementById('top').getElementsByTagName('button'); 
+
+function toggleButtons(target)
+{
+     for(let i=0;i<buttons.length;i++) {
+        if(target == buttons[i]){
+            buttons[i].classList.add('selected');
+        }
+        else {
+             buttons[i].classList.remove('selected');
+        }
+    }
+}
+
+function toggleMode(sender) {
+    bodyOrHeader = sender.innerText; 
+    toggleButtons(sender); 
+
+    let parent = document.getElementById('container'); 
+    let boxes = parent.getElementsByClassName('box'); 
+    let insertCount = 3-boxes.length; 
+    let fontBody = boxes[0].getElementsByClassName('bname')[0].innerText;  
+    let fontHeader = boxes[0].getElementsByClassName('hname')[0].innerText; 
+    console.log(insertCount); 
+    
+    for(let i=0;i<insertCount;i++)
+    {
+        let cln = boxtemp.cloneNode(true);
+        initBox(cln);
+        updateFont(cln, fontHeader, fontBody); 
+        parent.insertBefore(cln,overlay);
+    }
+
+    boxClick(null); 
+}
+
+
+function download(sender) {
+    toggleButtons(sender); 
+    let cont = document.getElementById('container');
+    let boxes = cont.getElementsByClassName('box'); 
+    console.log('length ' + boxes.length); 
+    for(let i=boxes.length-1;i>0;i--) {
+        console.log('remove '  + i); 
+        //console.log(boxes[i]); 
+        cont.removeChild(boxes[i]); 
+    }
+}
+
+function hideStart() {
+    let start = document.getElementById('start'); 
+    start.style.display = 'none'; 
 }

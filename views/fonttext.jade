@@ -1,9 +1,21 @@
 mixin sampletext()
-  h1 Header
-  h2 Toggle Font
+  h1 Toggle Font
+  h2 We have such fun
+  p Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
+  h2 Clicking on the right one
   p Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
   h2 Toggle Font
   p Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
+  h2 Toggle Font
+  p Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
+
+
+mixin box(count)
+  .box
+    .hname none
+    .bname none
+    .inner
+      +sampletext()
 
 mixin slider(what,start,end)
   .slider
@@ -11,14 +23,6 @@ mixin slider(what,start,end)
     .sliderlable #{start}
     input(type="range" id="myRange" value="90")
     .sliderlable #{end}
-
-mixin fontbox(what, label)
-  button.change(onClick="change('#{what}')") Change #{label}    
-  //.fontbox(class='#{what}')
-    .fontname font name
-    +slider('weight','light','bold')
-    +slider('type','simple','fancy')
-    +slider('width','narrow','large')
 
 mixin little()
   .bookmark

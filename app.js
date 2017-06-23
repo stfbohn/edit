@@ -58,6 +58,9 @@ app.get('/form', function (req, res) {
 app.get('/font', function (req, res) {
   res.render('fontpicker')
 });
+app.get('/char', function (req, res) {
+  res.render('char')
+});
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
