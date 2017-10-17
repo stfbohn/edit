@@ -10,18 +10,30 @@ html(lang='fr')
     include fonttext
     #main
       #top
+        .nav
+          button#bookmarkFont(onclick='bookmarkFont()') &#9734;
+            span.tooltiptext bookmark
+          //button &#9733;
+          button &#8592;
+            span.tooltiptext undo
+          //button &#8594;
         .mode
-          button &#x2B60;
-          button &#x279D;
-          //button.mode.selected(onclick='toggleMode(this)') all
-          button.mode(onclick='toggleMode(this)') header
-          button.mode(onclick='toggleMode(this)') body  
-          button bookmark
+          button.mode.selected(name='all' onclick='toggleMode(this)') all
+            span.tooltiptext toggle headers and body
+          button.mode(name='header' onclick='toggleMode(this)') header
+            span.tooltiptext toggle headers only
+          button.mode(name='body' onclick='toggleMode(this)') body
+            span.tooltiptext toggle headers only            
         div
           button options
+            span.tooltiptext restrict choices
           button bookmarks
+            span.tooltiptext see bookmarked fonts
           button share
+            span.tooltiptext share with your friends
           button(onclick='download(this)') download
+            span.tooltiptext for your website, your MS word, etc. 
+          
       #container
         +box(0)
         +box(1)

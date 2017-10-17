@@ -176,7 +176,8 @@ function toggleButtons(target)
 }
 
 function toggleMode(sender) {
-    bodyOrHeader = sender.innerText; 
+    bodyOrHeader = sender.name; 
+    console.log(bodyOrHeader); 
     toggleButtons(sender); 
 
     let parent = document.getElementById('container'); 
@@ -213,4 +214,18 @@ function download(sender) {
 function hideStart() {
     let start = document.getElementById('start'); 
     start.style.display = 'none'; 
+}
+
+let bookmarkFontButton = document.getElementById('bookmarkFont'); 
+console.log(bookmarkFontButton.innerText); 
+function bookmarkFont()
+{
+    if(bookmarkFontButton.innerHTML == ' &#9733'){
+        console.log('allready bookmarked')
+    }
+    else {
+        console.log(bookmarkFontButton.innerHTML); 
+         bookmarkFontButton.innerHTML = ' &#9733';
+         console.log('TODO: implement bookmark');
+    }
 }

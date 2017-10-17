@@ -16,7 +16,7 @@ div {
 }
 
     //$color_button: #636363;
-    $color_button:  #76608c;
+    $color_button:  #6c3bce;
 /*
 button {
     margin: 0;
@@ -37,14 +37,39 @@ button {
 }
 */
 button {
+    font-size: 1.2em; 
     margin: 0;
     margin-top: 10px; 
     padding: 7px; 
     color: $color_button;
     border: none;
     background-color: white;
+
+    //for tooltip
+    position: relative;
+    display: inline-block;
+
+    .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        left:20px;
+        top:30px;
+        font-size: 0.7em;
+        background-color: gray;
+        color: #fff;
+        text-align: left;
+        padding: 5px 5px;
+        border: solid gray 0.5px;
+        /* Position the tooltip */
+        position: absolute;
+        z-index: 1;
+    }
+
     &:hover { 
         color: black;
+        .tooltiptext {
+            visibility: visible;
+        }
     }
     
     &.selected {
